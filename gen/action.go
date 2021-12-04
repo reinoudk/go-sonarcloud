@@ -45,39 +45,39 @@ type Example struct {
 	Example string `json:"example"` // yes, it's a string...
 }
 
-func (act *Action) id() string {
-	return strcase.ToCamel(act.Key)
+func (a *Action) id() string {
+	return strcase.ToCamel(a.Key)
 }
 
-func (act *Action) requestType() string {
-	return fmt.Sprintf("%s%s", act.id(), "Request")
+func (a *Action) requestTypeName() string {
+	return fmt.Sprintf("%s%s", a.id(), "Request")
 }
 
-func (act *Action) responseType() string {
-	return fmt.Sprintf("%s%s", act.id(), "Response")
+func (a *Action) responseTypeName() string {
+	return fmt.Sprintf("%s%s", a.id(), "Response")
 }
 
-func (act *Action) responseTypeAll() string {
-	return fmt.Sprintf("%s%s", act.id(), "ResponseAll")
+func (a *Action) responseAllTypeName() string {
+	return fmt.Sprintf("%s%s", a.id(), "ResponseAll")
 }
 
-func (act *Action) responseTypePaging() string {
+func (a *Action) pagingFuncName() string {
 	return "GetPaging"
 }
 
-func (act *Action) serviceHandler() string {
-	return act.id()
+func (a *Action) serviceFuncName() string {
+	return a.id()
 }
 
-func (act *Action) serviceHandlerAll() string {
-	return fmt.Sprintf("%s%s", act.id(), "All")
+func (a *Action) serviceAllFuncName() string {
+	return fmt.Sprintf("%s%s", a.id(), "All")
 }
 
-func (act *Action) hasPaging() bool {
+func (a *Action) hasPaging() bool {
 	hasP := false
 	hasPs := false
 
-	for _, param := range act.Params {
+	for _, param := range a.Params {
 		switch param.Key {
 		case "p": hasP = true
 		case "ps": hasPs = true
@@ -87,18 +87,18 @@ func (act *Action) hasPaging() bool {
 	return hasP && hasPs
 }
 
-func (act *Action) responseFields(example map[string]interface{}) (Field, error) {
+func (a *Action) responseField(example map[string]interface{}) (Field, error) {
 	overrides := make(map[string]Field, 0)
-	if act.hasPaging() {
+	if a.hasPaging() {
 		overrides = map[string]Field{
 			"paging": NewStatementField("paging", Qual(qualifier("paging"), "Paging")),
 		}
 	}
 
-	return NewMapField(act.responseType(), example, overrides), nil
+	return NewMapField(a.responseTypeName(), example, overrides), nil
 }
 
-func (act *Action) responseFieldsWithoutPaging(example map[string]interface{}) (Field, error) {
+func (a *Action) responseFieldWithoutPaging(example map[string]interface{}) (Field, error) {
 	delete(example, "paging")
 
 	// Remove flattened paging as well
@@ -106,12 +106,12 @@ func (act *Action) responseFieldsWithoutPaging(example map[string]interface{}) (
 	delete(example, "ps")
 	delete(example, "total")
 
-	return NewMapField(act.responseTypeAll(), example, nil), nil
+	return NewMapField(a.responseAllTypeName(), example, nil), nil
 }
 
-func (act *Action) renderRequestStruct() *Statement {
-	fields := make([]Code, len(act.Params))
-	for i, param := range act.Params {
+func (a *Action) requestStruct() *Statement {
+	fields := make([]Code, len(a.Params))
+	for i, param := range a.Params {
 		// filter out unwanted fields and paging parameters
 		if contains(param.Key, append(skippedRequestFields, "p", "ps")) {
 			continue
@@ -120,23 +120,23 @@ func (act *Action) renderRequestStruct() *Statement {
 		fields[i] = param.render()
 	}
 
-	statement := Commentf("%s %s", act.requestType(), act.Description)
-	if act.DeprecatedSince != "" {
+	statement := Commentf("%s %s", a.requestTypeName(), a.Description)
+	if a.DeprecatedSince != "" {
 		statement.Line()
-		statement.Commentf("Deprecated: this action has been deprecated since version %s", act.DeprecatedSince)
+		statement.Commentf("Deprecated: this action has been deprecated since version %s", a.DeprecatedSince)
 	}
 	statement.Line()
 
-	statement.Type().Id(act.requestType()).Struct(fields...)
+	statement.Type().Id(a.requestTypeName()).Struct(fields...)
 
 	return statement
 }
 
-func (act *Action) renderResponseStruct(response Field) *Statement {
+func (a *Action) responseStruct(response Field) *Statement {
 	// EmptyField should not be rendered
 	if reflect.TypeOf(response) != reflect.TypeOf(&EmptyField{}) {
 		fields := response.Render(false)
-		statement := Commentf("%s is the response for %s", act.responseType(), act.requestType())
+		statement := Commentf("%s is the response for %s", a.responseTypeName(), a.requestTypeName())
 		statement.Line()
 		statement.Type().Add(fields)
 		return statement
@@ -145,12 +145,12 @@ func (act *Action) renderResponseStruct(response Field) *Statement {
 	return Empty()
 }
 
-func (act *Action) renderResponseStructPaging(collection Field) *Statement {
+func (a *Action) responseStructPagingFunc(collection Field) *Statement {
 	// EmptyField should not have a Paging
 	if reflect.TypeOf(collection) == reflect.TypeOf(&MapField{}) {
-		statement := Commentf("%s extracts the paging from %s", act.responseTypePaging(), act.responseType())
+		statement := Commentf("%s extracts the paging from %s", a.pagingFuncName(), a.responseTypeName())
 		statement.Line()
-		statement.Func().Parens(Id("r").Op("*").Id(act.responseType())).Id(act.responseTypePaging()).Call().Op("*").Qual(qualifier("paging"), "Paging")
+		statement.Func().Parens(Id("r").Op("*").Id(a.responseTypeName())).Id(a.pagingFuncName()).Call().Op("*").Qual(qualifier("paging"), "Paging")
 
 		if contains("Paging", collection.(*MapField).Accessors()) {
 			statement.Block(Return(Op("&").Id("r").Dot("Paging")))
@@ -170,11 +170,11 @@ func (act *Action) renderResponseStructPaging(collection Field) *Statement {
 	return Empty()
 }
 
-func (act *Action) renderResponseAllStruct(collection Field) *Statement {
+func (a *Action) responseAllStruct(collection Field) *Statement {
 	// EmptyField should not be rendered
 	if reflect.TypeOf(collection) != reflect.TypeOf(&EmptyField{}) {
 		fields := collection.Render(false)
-		statement := Commentf("%s is the collection for %s", act.responseTypeAll(), act.requestType())
+		statement := Commentf("%s is the collection for %s", a.responseAllTypeName(), a.requestTypeName())
 		statement.Line()
 		statement.Type().Add(fields)
 		return statement
@@ -183,9 +183,9 @@ func (act *Action) renderResponseAllStruct(collection Field) *Statement {
 	return Empty()
 }
 
-func (act *Action) fetchExample(endpoint string) (map[string]interface{}, error) {
+func (a *Action) fetchExample(endpoint string) (map[string]interface{}, error) {
 	controller := fmt.Sprintf("api/%s", endpoint)
-	request := ResponseExampleRequest{ID: act.responseType(), RequestID: act.id(), Controller: controller, Action: act.Key}
+	request := ResponseExampleRequest{ID: a.responseTypeName(), RequestID: a.id(), Controller: controller, Action: a.Key}
 
 	client := &http.Client{Timeout: 10 * time.Second}
 

@@ -15,17 +15,17 @@ type Service struct {
 	Actions     []Action `json:"actions"`
 }
 
-func (svc *Service) id() string {
-	return strcase.ToCamel(svc.endpoint())
+func (s *Service) id() string {
+	return strcase.ToCamel(s.endpoint())
 }
 
-func (svc *Service) endpoint() string {
-	path := strings.Split(svc.Path, "/")
+func (s *Service) endpoint() string {
+	path := strings.Split(s.Path, "/")
 	return path[len(path)-1]
 }
 
-func (svc *Service) process(output string) error {
-	endpoint := svc.endpoint()
+func (s *Service) process(output string) error {
+	endpoint := s.endpoint()
 	if contains(endpoint, skippedEndpoints) {
 		fmt.Printf("Skipping endpoint '%s'\n", endpoint)
 		return nil
@@ -35,55 +35,62 @@ func (svc *Service) process(output string) error {
 	typesFile.Commentf("// AUTOMATICALLY GENERATED, DO NOT EDIT BY HAND!\n")
 
 	serviceFile := NewFile(packageName)
+	serviceFile.ImportName("github.com/go-playground/form/v4", "form")
+	serviceFile.ImportName(qualifier(endpoint), endpoint)
+	serviceFile.ImportName(qualifier("paging"), "paging")
 	serviceFile.Commentf("// AUTOMATICALLY GENERATED, DO NOT EDIT BY HAND!\n")
 
-	serviceType := Type().Id(svc.id()).Id("service")
+	serviceType := Type().Id(s.id()).Id("service")
 	serviceFile.Add(serviceType)
 
-	for _, action := range svc.Actions {
-		requestOutput := action.renderRequestStruct()
-		typesFile.Add(requestOutput)
+	for _, action := range s.Actions {
+		requestStruct := action.requestStruct()
+		typesFile.Add(requestStruct)
 
 		var responseField Field = &EmptyField{}
-		var collectionField Field = &EmptyField{}
+		var responseFieldWithoutPaging Field = &EmptyField{}
 		if action.HasResponseExample {
 			example, err := action.fetchExample(endpoint)
 			if err != nil {
 				return fmt.Errorf("could not fetch example: %+v", err)
 			}
 
-			responseField, err = action.responseFields(example)
+			responseField, err = action.responseField(example)
 			if err != nil {
 				return fmt.Errorf("could not collect response fields: %+v", err)
 			}
 
 			if action.hasPaging() {
-				collectionField, err = action.responseFieldsWithoutPaging(example)
+				responseFieldWithoutPaging, err = action.responseFieldWithoutPaging(example)
 				if err != nil {
 					return fmt.Errorf("could not extract collection field: %+v", err)
 				}
 			}
 		}
 
-		responseOutput := action.renderResponseStruct(responseField)
-		typesFile.Add(responseOutput)
+		responseStruct := action.responseStruct(responseField)
+		typesFile.Add(responseStruct)
 
 		if action.hasPaging() {
-			pagingOutput := action.renderResponseStructPaging(responseField)
-			typesFile.Add(pagingOutput)
+			pagingFunc := action.responseStructPagingFunc(responseField)
+			typesFile.Add(pagingFunc)
 		}
 
-		collectionOutput := action.renderResponseAllStruct(collectionField)
-		typesFile.Add(collectionOutput)
+		responseAllStruct := action.responseAllStruct(responseFieldWithoutPaging)
+		typesFile.Add(responseAllStruct)
 
+		// Service file
 		if action.Post {
-			svc.postActionHandler(action, serviceFile, endpoint)
+			postActionOutput := s.postServiceFunc(action, endpoint)
+			serviceFile.Add(postActionOutput)
 		} else {
-			svc.getActionHandler(action, serviceFile, endpoint)
+			getActionOutput := s.getServiceFunc(action, endpoint)
+			serviceFile.Add(getActionOutput)
 		}
 
 		if action.hasPaging() {
-			svc.getAllActionHandler(action, serviceFile, endpoint, collectionField)
+			getPagedActionOutput := s.getAllServiceFunc(action, endpoint, responseFieldWithoutPaging)
+			serviceFile.Add(getPagedActionOutput)
 		}
 	}
 
@@ -105,24 +112,17 @@ func (svc *Service) process(output string) error {
 	return nil
 }
 
-func (svc *Service) postActionHandler(action Action, f *File, endpoint string) {
-	// import "github.com/go-playground/form/v4"
-	f.ImportName("github.com/go-playground/form/v4", "form")
-	// import "github.com/reinoudk/go-sonarcloud/sonarcloud/<endpoint>"
-	f.ImportName(qualifier(endpoint), endpoint)
-	// import "github.com/reinoudk/go-sonarcloud/sonarcloud/paging"
-	f.ImportName(qualifier("paging"), "paging")
-
+func (s *Service) postServiceFunc(action Action, endpoint string) *Statement {
 	// start function signature without return type
 	// func(s *<service id>) <action id>(r <request type>)
-	statement := Func().Parens(Id("s").Op("*").Id(svc.id())).Id(action.serviceHandler())
-	statement.Params(Id("r").Qual(qualifier(endpoint), action.requestType()))
+	statement := Func().Parens(Id("s").Op("*").Id(s.id())).Id(action.serviceFuncName())
+	statement.Params(Id("r").Qual(qualifier(endpoint), action.requestTypeName()))
 
 	// add return type based on whether we expect a response
 	if action.HasResponseExample {
 		// (*<response type>, error)
 		statement.Parens(
-			Op("*").Qual(qualifier(endpoint), action.responseType()).Op(",").Error(),
+			Op("*").Qual(qualifier(endpoint), action.responseTypeName()).Op(",").Error(),
 		)
 	} else {
 		// error
@@ -143,7 +143,7 @@ func (svc *Service) postActionHandler(action Action, f *File, endpoint string) {
 		Id("req").Op(",").Err().Op(":=").Id("s").Dot("client").Dot("NewRequest").Call(
 			Lit("POST"),
 			Qual("fmt", "Sprintf").Call(
-				Lit(fmt.Sprintf("%%s/%s/%s", svc.endpoint(), action.Key)),
+				Lit(fmt.Sprintf("%%s/%s/%s", s.endpoint(), action.Key)),
 				Id("API"),
 			),
 			Qual("strings", "NewReader").Call(
@@ -181,7 +181,7 @@ func (svc *Service) postActionHandler(action Action, f *File, endpoint string) {
 		ifTrueGen(
 			action.HasResponseExample,
 			// 	response := &projects.BulkUpdateKeyResponse{}
-			Id("response").Op(":=").Op("&").Qual(qualifier(endpoint), action.responseType()).Block(),
+			Id("response").Op(":=").Op("&").Qual(qualifier(endpoint), action.responseTypeName()).Block(),
 		),
 		ifTrueGen(
 			action.HasResponseExample,
@@ -207,20 +207,15 @@ func (svc *Service) postActionHandler(action Action, f *File, endpoint string) {
 	// Spacing
 	statement.Line()
 
-	f.Add(statement)
+	return statement
 }
 
-func (svc *Service) getActionHandler(action Action, f *File, endpoint string) {
-	// import "github.com/reinoudk/go-sonarcloud/sonarcloud/<endpoint>"
-	f.ImportName(qualifier(endpoint), endpoint)
-	// import "github.com/reinoudk/go-sonarcloud/sonarcloud/paging"
-	f.ImportName(qualifier("paging"), "paging")
-
+func (s *Service) getServiceFunc(action Action, endpoint string) *Statement {
 	// start function signature without return type
 	// func(s *<service id>) <action id>(r <request type>)
-	statement := Func().Parens(Id("s").Op("*").Id(svc.id())).Id(action.serviceHandler())
+	statement := Func().Parens(Id("s").Op("*").Id(s.id())).Id(action.serviceFuncName())
 	statement.Params(
-		Id("r").Qual(qualifier(endpoint), action.requestType()),
+		Id("r").Qual(qualifier(endpoint), action.requestTypeName()),
 		ifTrueGen(action.hasPaging(), Id("p").Qual(qualifier("paging"), "PagingParams")),
 	)
 
@@ -228,7 +223,7 @@ func (svc *Service) getActionHandler(action Action, f *File, endpoint string) {
 	if action.HasResponseExample {
 		// (*<response type>, error)
 		statement.Parens(
-			Op("*").Qual(qualifier(endpoint), action.responseType()).Op(",").Error(),
+			Op("*").Qual(qualifier(endpoint), action.responseTypeName()).Op(",").Error(),
 		)
 	} else {
 		// error
@@ -250,7 +245,7 @@ func (svc *Service) getActionHandler(action Action, f *File, endpoint string) {
 		Id("req").Op(",").Err().Op(":=").Id("s").Dot("client").Dot("NewRequestWithParameters").Call(
 			Lit("GET"),
 			Qual("fmt", "Sprintf").Call(
-				Lit(fmt.Sprintf("%%s/%s/%s", svc.endpoint(), action.Key)),
+				Lit(fmt.Sprintf("%%s/%s/%s", s.endpoint(), action.Key)),
 				Id("API"),
 			),
 			Id("params").Op("..."),
@@ -286,7 +281,7 @@ func (svc *Service) getActionHandler(action Action, f *File, endpoint string) {
 		ifTrueGen(
 			action.HasResponseExample,
 			// 	response := &projects.BulkUpdateKeyResponse{}
-			Id("response").Op(":=").Op("&").Qual(qualifier(endpoint), action.responseType()).Block(),
+			Id("response").Op(":=").Op("&").Qual(qualifier(endpoint), action.responseTypeName()).Block(),
 		),
 		ifTrueGen(
 			action.HasResponseExample,
@@ -312,27 +307,22 @@ func (svc *Service) getActionHandler(action Action, f *File, endpoint string) {
 	// Spacing
 	statement.Line()
 
-	f.Add(statement)
+	return statement
 }
 
-func (svc *Service) getAllActionHandler(action Action, f *File, endpoint string, field Field) {
-	// import "github.com/reinoudk/go-sonarcloud/sonarcloud/<endpoint>"
-	f.ImportName(qualifier(endpoint), endpoint)
-	// import "github.com/reinoudk/go-sonarcloud/sonarcloud/paging"
-	f.ImportName(qualifier("paging"), "paging")
-
+func (s *Service) getAllServiceFunc(action Action, endpoint string, field Field) *Statement {
 	// start function signature without return type
 	// func(s *<service id>) <action id>(r <request type all>)
-	statement := Func().Parens(Id("s").Op("*").Id(svc.id())).Id(action.serviceHandlerAll())
+	statement := Func().Parens(Id("s").Op("*").Id(s.id())).Id(action.serviceAllFuncName())
 	statement.Params(
-		Id("r").Qual(qualifier(endpoint), action.requestType()),
+		Id("r").Qual(qualifier(endpoint), action.requestTypeName()),
 	)
 
 	// Just to be safe, check field type
 	mapField, ok := field.(*MapField)
 	if !ok {
-		fmt.Printf("Not generating 'All' handler for %s/%s, only map fields supported, got: %+v\n", svc.endpoint(), action.Key, reflect.TypeOf(field))
-		return
+		fmt.Printf("Not generating 'All' handler for %s/%s, only map fields supported, got: %+v\n", s.endpoint(), action.Key, reflect.TypeOf(field))
+		return Empty()
 	}
 
 	// Create an update statement for all fields of the response structure
@@ -347,52 +337,52 @@ func (svc *Service) getAllActionHandler(action Action, f *File, endpoint string,
 				Id("res").Dot(accessor).Op("..."),
 			)
 		default:
-			fmt.Printf("Skipping field '%s' for %s.%s, only slices are supported.\n", mapField.fields[i].Name(), action.Key, action.responseTypeAll())
+			fmt.Printf("Skipping field '%s' for %s.%s, only slices are supported.\n", mapField.fields[i].Name(), action.Key, action.responseAllTypeName())
 		}
 	}
 
 	// Paged requests always have a response
 	// (*<response type>, error)
 	statement.Parens(
-		Op("*").Qual(qualifier(endpoint), action.responseTypeAll()).Op(",").Error(),
+		Op("*").Qual(qualifier(endpoint), action.responseAllTypeName()).Op(",").Error(),
 	)
 
 	// function body
-	funcBody := make([]Code, 0)
+	funcBody := &Statement{}
 
 	//	p := paging.PagingParams{
 	//		P:  1,
 	//		Ps: 100,
 	//	}
-	funcBody = append(funcBody,
+	funcBody.Add(
 		Id("p").Op(":=").Qual(qualifier("paging"), "PagingParams").Values(Dict{
 			Id("P"): Lit(1),
 			Id("Ps"): Lit(100),
 		}),
 
-		Id("response").Op(":=").Op("&").Qual(qualifier(endpoint), action.responseTypeAll()).Block(),
+		Id("response").Op(":=").Op("&").Qual(qualifier(endpoint), action.responseAllTypeName()).Block(),
 	)
 
-	loopBody := make([]Code, 0)
-	loopBody = append(loopBody,
+	loopBody := &Statement{}
+	loopBody.Add(
 		//	res, err := s.Search(r, p)
 		//	if err != nil {
 		//		return nil, fmt.Errorf("could not search projects: %+v", err)
 		//	}
-		Id("res").Op(",").Err().Op(":=").Id("s").Dot(action.serviceHandler()).Call(Id("r"),  Id("p")),
+		Id("res").Op(",").Err().Op(":=").Id("s").Dot(action.serviceFuncName()).Call(Id("r"),  Id("p")),
 		ifError(action, "could not search all projects: %+v"),
 	)
 
 	// Add update statements for each accessor
-	loopBody = append(loopBody, updateStatements...)
+	loopBody.Add(updateStatements...)
 
-	loopBody = append(loopBody,
+	loopBody.Add(
 		//	if res.Paging.End() {
 		//		break
 		//	} else {
 		//		p.P++
 		//	}
-		If(Id("res").Dot(action.responseTypePaging()).Call().Dot("End").Call()).Block(
+		If(Id("res").Dot(action.pagingFuncName()).Call().Dot("End").Call()).Block(
 			Break(),
 		).Else().Block(
 			Id("p").Dot("P").Op("++"),
@@ -400,19 +390,19 @@ func (svc *Service) getAllActionHandler(action Action, f *File, endpoint string,
 	)
 
 	//	for {
-	funcBody = append(funcBody,
-			For(nil).Block(loopBody...))
+	funcBody.Add(
+			For(nil).Block(*loopBody...))
 	//	}
 
-	funcBody = append(funcBody,
+	funcBody.Add(
 		// return response, nil
 		Return(Id("response"), Nil()),
 	)
 
-	statement.Block(funcBody...)
+	statement.Block(*funcBody...)
 
 	// Spacing
 	statement.Line()
 
-	f.Add(statement)
+	return statement
 }

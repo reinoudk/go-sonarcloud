@@ -1,6 +1,5 @@
-// This small program is used to generate request structs for the SonarCloud API.
+// This small program is used to generate request structs and services for the SonarCloud API.
 // It expects a JSON file with the same structure as returned by `https://sonarcloud.io/api/webservices/list`.
-// See AllowedEndpoints for the list of endpoints that are considered during generation.
 package main
 
 import (
@@ -14,6 +13,7 @@ type Api struct {
 	Services []Service `json:"webServices"`
 }
 
+// These endpoints cannot/should not be generated
 var skippedEndpoints = []string{
 	"duplications", // numeric map keys cause parse errors
 	"properties",   // unmarshall errors on already deprecated endpoint
