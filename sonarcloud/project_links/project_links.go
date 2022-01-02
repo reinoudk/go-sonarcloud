@@ -13,9 +13,9 @@ type CreateRequest struct {
 // CreateResponse is the response for CreateRequest
 type CreateResponse struct {
 	Link struct {
-		Id   string `json:"id,omitempty"`
-		Name string `json:"name,omitempty"`
-		Url  string `json:"url,omitempty"`
+		Id   float64 `json:"id,omitempty"`
+		Name string  `json:"name,omitempty"`
+		Url  string  `json:"url,omitempty"`
 	} `json:"link,omitempty"`
 }
 
@@ -33,9 +33,9 @@ type SearchRequest struct {
 // SearchResponse is the response for SearchRequest
 type SearchResponse struct {
 	Links []struct {
-		Id   string `json:"id,omitempty"`
-		Name string `json:"name,omitempty"`
-		Type string `json:"type,omitempty"`
-		Url  string `json:"url,omitempty"`
+		Id   float64 `json:"id,omitempty"`
+		Name string  `json:"name,omitempty"`
+		Type string  `json:"type,omitempty"`
+		Url  string  `json:"url,omitempty"`
 	} `json:"links,omitempty"`
 }

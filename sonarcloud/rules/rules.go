@@ -55,8 +55,8 @@ type SearchResponse struct {
 		SquidClassCyclomaticComplexity []struct {
 			Inherit string `json:"inherit,omitempty"`
 			Params  []struct {
-				Key   string `json:"key,omitempty"`
-				Value string `json:"value,omitempty"`
+				Key   string  `json:"key,omitempty"`
+				Value float64 `json:"value,omitempty"`
 			} `json:"params,omitempty"`
 			QProfile string `json:"qProfile,omitempty"`
 			Severity string `json:"severity,omitempty"`
@@ -64,8 +64,8 @@ type SearchResponse struct {
 		SquidMethodCyclomaticComplexity []struct {
 			Inherit string `json:"inherit,omitempty"`
 			Params  []struct {
-				Key   string `json:"key,omitempty"`
-				Value string `json:"value,omitempty"`
+				Key   string  `json:"key,omitempty"`
+				Value float64 `json:"value,omitempty"`
 			} `json:"params,omitempty"`
 			QProfile string `json:"qProfile,omitempty"`
 			Severity string `json:"severity,omitempty"`
@@ -73,8 +73,8 @@ type SearchResponse struct {
 		SquidS1067 []struct {
 			Inherit string `json:"inherit,omitempty"`
 			Params  []struct {
-				Key   string `json:"key,omitempty"`
-				Value string `json:"value,omitempty"`
+				Key   string  `json:"key,omitempty"`
+				Value float64 `json:"value,omitempty"`
 			} `json:"params,omitempty"`
 			QProfile string `json:"qProfile,omitempty"`
 			Severity string `json:"severity,omitempty"`
@@ -100,9 +100,9 @@ type SearchResponse struct {
 		LangName    string `json:"langName,omitempty"`
 		Name        string `json:"name,omitempty"`
 		Params      []struct {
-			DefaultValue string `json:"defaultValue,omitempty"`
-			Desc         string `json:"desc,omitempty"`
-			Key          string `json:"key,omitempty"`
+			DefaultValue float64 `json:"defaultValue,omitempty"`
+			Desc         string  `json:"desc,omitempty"`
+			Key          string  `json:"key,omitempty"`
 		} `json:"params,omitempty"`
 		Repo      string   `json:"repo,omitempty"`
 		Scope     string   `json:"scope,omitempty"`
@@ -132,8 +132,8 @@ type SearchResponseAll struct {
 		SquidClassCyclomaticComplexity []struct {
 			Inherit string `json:"inherit,omitempty"`
 			Params  []struct {
-				Key   string `json:"key,omitempty"`
-				Value string `json:"value,omitempty"`
+				Key   string  `json:"key,omitempty"`
+				Value float64 `json:"value,omitempty"`
 			} `json:"params,omitempty"`
 			QProfile string `json:"qProfile,omitempty"`
 			Severity string `json:"severity,omitempty"`
@@ -141,8 +141,8 @@ type SearchResponseAll struct {
 		SquidMethodCyclomaticComplexity []struct {
 			Inherit string `json:"inherit,omitempty"`
 			Params  []struct {
-				Key   string `json:"key,omitempty"`
-				Value string `json:"value,omitempty"`
+				Key   string  `json:"key,omitempty"`
+				Value float64 `json:"value,omitempty"`
 			} `json:"params,omitempty"`
 			QProfile string `json:"qProfile,omitempty"`
 			Severity string `json:"severity,omitempty"`
@@ -150,8 +150,8 @@ type SearchResponseAll struct {
 		SquidS1067 []struct {
 			Inherit string `json:"inherit,omitempty"`
 			Params  []struct {
-				Key   string `json:"key,omitempty"`
-				Value string `json:"value,omitempty"`
+				Key   string  `json:"key,omitempty"`
+				Value float64 `json:"value,omitempty"`
 			} `json:"params,omitempty"`
 			QProfile string `json:"qProfile,omitempty"`
 			Severity string `json:"severity,omitempty"`
@@ -175,9 +175,9 @@ type SearchResponseAll struct {
 		LangName    string `json:"langName,omitempty"`
 		Name        string `json:"name,omitempty"`
 		Params      []struct {
-			DefaultValue string `json:"defaultValue,omitempty"`
-			Desc         string `json:"desc,omitempty"`
-			Key          string `json:"key,omitempty"`
+			DefaultValue float64 `json:"defaultValue,omitempty"`
+			Desc         string  `json:"desc,omitempty"`
+			Key          string  `json:"key,omitempty"`
 		} `json:"params,omitempty"`
 		Repo      string   `json:"repo,omitempty"`
 		Scope     string   `json:"scope,omitempty"`
@@ -202,8 +202,8 @@ type ShowResponse struct {
 	Actives []struct {
 		Inherit string `json:"inherit,omitempty"`
 		Params  []struct {
-			Key   string `json:"key,omitempty"`
-			Value string `json:"value,omitempty"`
+			Key   string  `json:"key,omitempty"`
+			Value float64 `json:"value,omitempty"`
 		} `json:"params,omitempty"`
 		QProfile string `json:"qProfile,omitempty"`
 		Severity string `json:"severity,omitempty"`
@@ -221,9 +221,9 @@ type ShowResponse struct {
 		LangName                  string `json:"langName,omitempty"`
 		Name                      string `json:"name,omitempty"`
 		Params                    []struct {
-			DefaultValue string `json:"defaultValue,omitempty"`
-			Desc         string `json:"desc,omitempty"`
-			Key          string `json:"key,omitempty"`
+			DefaultValue float64 `json:"defaultValue,omitempty"`
+			Desc         string  `json:"desc,omitempty"`
+			Key          string  `json:"key,omitempty"`
 		} `json:"params,omitempty"`
 		RemFnBaseEffort    string   `json:"remFnBaseEffort,omitempty"`
 		RemFnGapMultiplier string   `json:"remFnGapMultiplier,omitempty"`

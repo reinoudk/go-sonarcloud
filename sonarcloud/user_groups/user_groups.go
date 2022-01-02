@@ -24,7 +24,7 @@ type CreateResponse struct {
 	Group struct {
 		Default      bool    `json:"default,omitempty"`
 		Description  string  `json:"description,omitempty"`
-		Id           string  `json:"id,omitempty"`
+		Id           float64 `json:"id,omitempty"`
 		MembersCount float64 `json:"membersCount,omitempty"`
 		Name         string  `json:"name,omitempty"`
 		Organization string  `json:"organization,omitempty"`

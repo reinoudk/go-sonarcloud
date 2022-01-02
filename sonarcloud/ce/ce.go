@@ -60,7 +60,7 @@ type ComponentRequest struct {
 // ComponentResponse is the response for ComponentRequest
 type ComponentResponse struct {
 	Current struct {
-		AnalysisId         string  `json:"analysisId,omitempty"`
+		AnalysisId         float64 `json:"analysisId,omitempty"`
 		ComponentId        string  `json:"componentId,omitempty"`
 		ComponentKey       string  `json:"componentKey,omitempty"`
 		ComponentName      string  `json:"componentName,omitempty"`
@@ -102,7 +102,7 @@ type TaskRequest struct {
 // TaskResponse is the response for TaskRequest
 type TaskResponse struct {
 	Task struct {
-		AnalysisId         string  `json:"analysisId,omitempty"`
+		AnalysisId         float64 `json:"analysisId,omitempty"`
 		ComponentId        string  `json:"componentId,omitempty"`
 		ComponentKey       string  `json:"componentKey,omitempty"`
 		ComponentName      string  `json:"componentName,omitempty"`

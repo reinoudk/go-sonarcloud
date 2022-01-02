@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"reflect"
+	"strconv"
 	"time"
 )
 
@@ -231,7 +232,12 @@ func parseField(name string, value interface{}, overrides map[string]Field) Fiel
 	}
 	switch value.(type) {
 	case string:
-		return &StringField{name: name}
+		// Numbers are represented as strings in the examples, while being floats in the real world responses...
+		if _, err := strconv.ParseFloat(value.(string), 64); err == nil {
+			return &FloatField{name: name}
+		} else {
+			return &StringField{name: name}
+		}
 	case float64:
 		return &FloatField{name: name}
 	case bool:
