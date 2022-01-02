@@ -89,11 +89,15 @@ func (a *Action) hasPaging() bool {
 }
 
 func (a *Action) responseField(example map[string]interface{}) (Field, error) {
-	overrides := make(map[string]Field, 0)
+	overrides := make(map[string]Field)
 	if a.hasPaging() {
-		overrides = map[string]Field{
-			"paging": NewStatementField("paging", Qual(qualifier("paging"), "Paging")),
-		}
+		overrides["paging"] = NewStatementField("paging", Qual(qualifier("paging"), "Paging"))
+	}
+
+	// TODO: overrides should be defined globally and not just by action key, but by service path as well.
+	if a.Key == "generate" {
+		// The token example is "1234567", which we 'falsely' interpret as an integer. Real tokens have letters...
+		overrides["token"] = &StringField{name: "Token"}
 	}
 
 	return NewMapField(a.responseTypeName(), example, overrides), nil
