@@ -13,7 +13,7 @@ type Ce service
 func (s *Ce) Activity(r ce.ActivityRequest) (*ce.ActivityResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/ce/activity", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/ce/activity", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -40,7 +40,7 @@ func (s *Ce) Activity(r ce.ActivityRequest) (*ce.ActivityResponse, error) {
 func (s *Ce) ActivityStatus(r ce.ActivityStatusRequest) (*ce.ActivityStatusResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/ce/activity_status", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/ce/activity_status", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -67,7 +67,7 @@ func (s *Ce) ActivityStatus(r ce.ActivityStatusRequest) (*ce.ActivityStatusRespo
 func (s *Ce) Component(r ce.ComponentRequest) (*ce.ComponentResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/ce/component", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/ce/component", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -94,7 +94,7 @@ func (s *Ce) Component(r ce.ComponentRequest) (*ce.ComponentResponse, error) {
 func (s *Ce) Task(r ce.TaskRequest) (*ce.TaskResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/ce/task", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/ce/task", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

@@ -20,7 +20,7 @@ func (s *Webhooks) Create(r webhooks.CreateRequest) (*webhooks.CreateResponse, e
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/webhooks/create", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/webhooks/create", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -51,7 +51,7 @@ func (s *Webhooks) Delete(r webhooks.DeleteRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/webhooks/delete", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/webhooks/delete", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -73,7 +73,7 @@ func (s *Webhooks) Delete(r webhooks.DeleteRequest) error {
 func (s *Webhooks) Deliveries(r webhooks.DeliveriesRequest, p paging.PagingParams) (*webhooks.DeliveriesResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/webhooks/deliveries", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/webhooks/deliveries", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -121,7 +121,7 @@ func (s *Webhooks) DeliveriesAll(r webhooks.DeliveriesRequest) (*webhooks.Delive
 func (s *Webhooks) Delivery(r webhooks.DeliveryRequest) (*webhooks.DeliveryResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/webhooks/delivery", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/webhooks/delivery", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -148,7 +148,7 @@ func (s *Webhooks) Delivery(r webhooks.DeliveryRequest) (*webhooks.DeliveryRespo
 func (s *Webhooks) List(r webhooks.ListRequest) (*webhooks.ListResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/webhooks/list", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/webhooks/list", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -179,7 +179,7 @@ func (s *Webhooks) Update(r webhooks.UpdateRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/webhooks/update", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/webhooks/update", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}

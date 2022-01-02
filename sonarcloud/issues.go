@@ -20,7 +20,7 @@ func (s *Issues) AddComment(r issues.AddCommentRequest) (*issues.AddCommentRespo
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/issues/add_comment", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/issues/add_comment", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -51,7 +51,7 @@ func (s *Issues) Assign(r issues.AssignRequest) (*issues.AssignResponse, error) 
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/issues/assign", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/issues/assign", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -78,7 +78,7 @@ func (s *Issues) Assign(r issues.AssignRequest) (*issues.AssignResponse, error) 
 func (s *Issues) Authors(r issues.AuthorsRequest) (*issues.AuthorsResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/issues/authors", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/issues/authors", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -109,7 +109,7 @@ func (s *Issues) BulkChange(r issues.BulkChangeRequest) (*issues.BulkChangeRespo
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/issues/bulk_change", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/issues/bulk_change", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -136,7 +136,7 @@ func (s *Issues) BulkChange(r issues.BulkChangeRequest) (*issues.BulkChangeRespo
 func (s *Issues) Changelog(r issues.ChangelogRequest) (*issues.ChangelogResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/issues/changelog", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/issues/changelog", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -167,7 +167,7 @@ func (s *Issues) DeleteComment(r issues.DeleteCommentRequest) (*issues.DeleteCom
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/issues/delete_comment", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/issues/delete_comment", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -198,7 +198,7 @@ func (s *Issues) DoTransition(r issues.DoTransitionRequest) (*issues.DoTransitio
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/issues/do_transition", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/issues/do_transition", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -229,7 +229,7 @@ func (s *Issues) EditComment(r issues.EditCommentRequest) (*issues.EditCommentRe
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/issues/edit_comment", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/issues/edit_comment", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -256,7 +256,7 @@ func (s *Issues) EditComment(r issues.EditCommentRequest) (*issues.EditCommentRe
 func (s *Issues) Search(r issues.SearchRequest, p paging.PagingParams) (*issues.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/issues/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/issues/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -311,7 +311,7 @@ func (s *Issues) SetSeverity(r issues.SetSeverityRequest) (*issues.SetSeverityRe
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/issues/set_severity", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/issues/set_severity", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -342,7 +342,7 @@ func (s *Issues) SetTags(r issues.SetTagsRequest) (*issues.SetTagsResponse, erro
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/issues/set_tags", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/issues/set_tags", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -373,7 +373,7 @@ func (s *Issues) SetType(r issues.SetTypeRequest) (*issues.SetTypeResponse, erro
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/issues/set_type", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/issues/set_type", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -400,7 +400,7 @@ func (s *Issues) SetType(r issues.SetTypeRequest) (*issues.SetTypeResponse, erro
 func (s *Issues) Tags(r issues.TagsRequest) (*issues.TagsResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/issues/tags", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/issues/tags", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

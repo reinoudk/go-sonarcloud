@@ -14,7 +14,7 @@ type Users service
 func (s *Users) Groups(r users.GroupsRequest, p paging.PagingParams) (*users.GroupsResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/users/groups", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/users/groups", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -62,7 +62,7 @@ func (s *Users) GroupsAll(r users.GroupsRequest) (*users.GroupsResponseAll, erro
 func (s *Users) Search(r users.SearchRequest, p paging.PagingParams) (*users.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/users/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/users/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

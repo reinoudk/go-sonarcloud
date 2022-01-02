@@ -19,7 +19,7 @@ func (s *ProjectLinks) Create(r project_links.CreateRequest) (*project_links.Cre
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_links/create", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_links/create", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -50,7 +50,7 @@ func (s *ProjectLinks) Delete(r project_links.DeleteRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_links/delete", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_links/delete", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -72,7 +72,7 @@ func (s *ProjectLinks) Delete(r project_links.DeleteRequest) error {
 func (s *ProjectLinks) Search(r project_links.SearchRequest) (*project_links.SearchResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/project_links/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/project_links/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

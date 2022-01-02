@@ -6,7 +6,8 @@ import paging "github.com/reinoudk/go-sonarcloud/sonarcloud/paging"
 
 // SearchRequest Search for projects. Used to provide the ability to search for any component but this option has been removed and webservice 'api/components/tree' should be used instead for this purpose
 type SearchRequest struct {
-	Q string `form:"q,omitempty"` // Limit search to: <ul><li>component names that contain the supplied string</li><li>component keys that are exactly the same as the supplied string</li></ul>
+	Organization string `form:"organization,omitempty"` // Organization key
+	Q            string `form:"q,omitempty"`            // Limit search to: <ul><li>component names that contain the supplied string</li><li>component keys that are exactly the same as the supplied string</li></ul>
 }
 
 // SearchResponse is the response for SearchRequest

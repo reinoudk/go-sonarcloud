@@ -141,8 +141,9 @@ type AssignResponse struct {
 
 // AuthorsRequest Search SCM accounts which match a given query.<br/>Requires authentication.
 type AuthorsRequest struct {
-	Project string `form:"project,omitempty"` // Project key
-	Q       string `form:"q,omitempty"`       // Limit search to authors that contain the supplied string.
+	Organization string `form:"organization,omitempty"` // Organization key
+	Project      string `form:"project,omitempty"`      // Project key
+	Q            string `form:"q,omitempty"`            // Limit search to authors that contain the supplied string.
 }
 
 // AuthorsResponse is the response for AuthorsRequest
@@ -412,6 +413,7 @@ type SearchRequest struct {
 	Issues              string `form:"issues,omitempty"`              // Comma-separated list of issue keys
 	Languages           string `form:"languages,omitempty"`           // Comma-separated list of languages. Available since 4.4
 	OnComponentOnly     string `form:"onComponentOnly,omitempty"`     // Return only issues at a component's level, not on its descendants (modules, directories, files, etc). This parameter is only considered when componentKeys or componentUuids is set.
+	Organization        string `form:"organization,omitempty"`        // Organization key
 	OwaspTop10          string `form:"owaspTop10,omitempty"`          // Comma-separated list of OWASP Top 10 lowercase categories.
 	PullRequest         string `form:"pullRequest,omitempty"`         // Pull request id
 	Resolutions         string `form:"resolutions,omitempty"`         // Comma-separated list of resolutions
@@ -784,8 +786,9 @@ type SetTypeResponse struct {
 
 // TagsRequest List tags matching a given query
 type TagsRequest struct {
-	Project string `form:"project,omitempty"` // Project key
-	Q       string `form:"q,omitempty"`       // Limit search to tags that contain the supplied string.
+	Organization string `form:"organization,omitempty"` // Organization key
+	Project      string `form:"project,omitempty"`      // Project key
+	Q            string `form:"q,omitempty"`            // Limit search to tags that contain the supplied string.
 }
 
 // TagsResponse is the response for TagsRequest

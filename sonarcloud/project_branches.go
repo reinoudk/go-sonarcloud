@@ -19,7 +19,7 @@ func (s *ProjectBranches) Delete(r project_branches.DeleteRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_branches/delete", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_branches/delete", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -41,7 +41,7 @@ func (s *ProjectBranches) Delete(r project_branches.DeleteRequest) error {
 func (s *ProjectBranches) List(r project_branches.ListRequest) (*project_branches.ListResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/project_branches/list", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/project_branches/list", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -72,7 +72,7 @@ func (s *ProjectBranches) Rename(r project_branches.RenameRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_branches/rename", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_branches/rename", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}

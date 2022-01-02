@@ -19,7 +19,7 @@ func (s *Qualitygates) Copy(r qualitygates.CopyRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/copy", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/copy", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -45,7 +45,7 @@ func (s *Qualitygates) Create(r qualitygates.CreateRequest) (*qualitygates.Creat
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/create", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/create", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -76,7 +76,7 @@ func (s *Qualitygates) CreateCondition(r qualitygates.CreateConditionRequest) (*
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/create_condition", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/create_condition", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -107,7 +107,7 @@ func (s *Qualitygates) DeleteCondition(r qualitygates.DeleteConditionRequest) er
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/delete_condition", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/delete_condition", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -133,7 +133,7 @@ func (s *Qualitygates) Deselect(r qualitygates.DeselectRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/deselect", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/deselect", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -159,7 +159,7 @@ func (s *Qualitygates) Destroy(r qualitygates.DestroyRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/destroy", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/destroy", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -181,7 +181,7 @@ func (s *Qualitygates) Destroy(r qualitygates.DestroyRequest) error {
 func (s *Qualitygates) GetByProject(r qualitygates.GetByProjectRequest) (*qualitygates.GetByProjectResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/qualitygates/get_by_project", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/qualitygates/get_by_project", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -208,7 +208,7 @@ func (s *Qualitygates) GetByProject(r qualitygates.GetByProjectRequest) (*qualit
 func (s *Qualitygates) List(r qualitygates.ListRequest) (*qualitygates.ListResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/qualitygates/list", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/qualitygates/list", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -235,7 +235,7 @@ func (s *Qualitygates) List(r qualitygates.ListRequest) (*qualitygates.ListRespo
 func (s *Qualitygates) ProjectStatus(r qualitygates.ProjectStatusRequest) (*qualitygates.ProjectStatusResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/qualitygates/project_status", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/qualitygates/project_status", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -266,7 +266,7 @@ func (s *Qualitygates) Rename(r qualitygates.RenameRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/rename", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/rename", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -288,7 +288,7 @@ func (s *Qualitygates) Rename(r qualitygates.RenameRequest) error {
 func (s *Qualitygates) Search(r qualitygates.SearchRequest) (*qualitygates.SearchResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/qualitygates/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/qualitygates/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -319,7 +319,7 @@ func (s *Qualitygates) Select(r qualitygates.SelectRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/select", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/select", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -345,7 +345,7 @@ func (s *Qualitygates) SetAsDefault(r qualitygates.SetAsDefaultRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/set_as_default", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/set_as_default", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -367,7 +367,7 @@ func (s *Qualitygates) SetAsDefault(r qualitygates.SetAsDefaultRequest) error {
 func (s *Qualitygates) Show(r qualitygates.ShowRequest) (*qualitygates.ShowResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/qualitygates/show", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/qualitygates/show", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -398,7 +398,7 @@ func (s *Qualitygates) UnsetDefault(r qualitygates.UnsetDefaultRequest) (*qualit
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/unset_default", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/unset_default", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -429,7 +429,7 @@ func (s *Qualitygates) UpdateCondition(r qualitygates.UpdateConditionRequest) er
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/qualitygates/update_condition", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/qualitygates/update_condition", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}

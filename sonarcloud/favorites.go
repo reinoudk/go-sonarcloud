@@ -20,7 +20,7 @@ func (s *Favorites) Add(r favorites.AddRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/favorites/add", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/favorites/add", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -46,7 +46,7 @@ func (s *Favorites) Remove(r favorites.RemoveRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/favorites/remove", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/favorites/remove", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -68,7 +68,7 @@ func (s *Favorites) Remove(r favorites.RemoveRequest) error {
 func (s *Favorites) Search(r favorites.SearchRequest, p paging.PagingParams) (*favorites.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/favorites/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/favorites/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

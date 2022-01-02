@@ -20,7 +20,7 @@ func (s *ProjectAnalyses) CreateEvent(r project_analyses.CreateEventRequest) (*p
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_analyses/create_event", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_analyses/create_event", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -51,7 +51,7 @@ func (s *ProjectAnalyses) Delete(r project_analyses.DeleteRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_analyses/delete", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_analyses/delete", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -77,7 +77,7 @@ func (s *ProjectAnalyses) DeleteEvent(r project_analyses.DeleteEventRequest) err
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_analyses/delete_event", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_analyses/delete_event", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -99,7 +99,7 @@ func (s *ProjectAnalyses) DeleteEvent(r project_analyses.DeleteEventRequest) err
 func (s *ProjectAnalyses) Search(r project_analyses.SearchRequest, p paging.PagingParams) (*project_analyses.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/project_analyses/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/project_analyses/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -151,7 +151,7 @@ func (s *ProjectAnalyses) SetBaseline(r project_analyses.SetBaselineRequest) err
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_analyses/set_baseline", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_analyses/set_baseline", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -177,7 +177,7 @@ func (s *ProjectAnalyses) UnsetBaseline(r project_analyses.UnsetBaselineRequest)
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_analyses/unset_baseline", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_analyses/unset_baseline", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -203,7 +203,7 @@ func (s *ProjectAnalyses) UpdateEvent(r project_analyses.UpdateEventRequest) (*p
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_analyses/update_event", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_analyses/update_event", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

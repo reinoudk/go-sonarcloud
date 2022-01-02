@@ -19,7 +19,7 @@ func (s *Authentication) Logout(r authentication.LogoutRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/authentication/logout", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/authentication/logout", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -41,7 +41,7 @@ func (s *Authentication) Logout(r authentication.LogoutRequest) error {
 func (s *Authentication) Validate(r authentication.ValidateRequest) (*authentication.ValidateResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/authentication/validate", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/authentication/validate", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

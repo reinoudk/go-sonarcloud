@@ -16,7 +16,7 @@ type Rules service
 func (s *Rules) Repositories(r rules.RepositoriesRequest) (*rules.RepositoriesResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/rules/repositories", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/rules/repositories", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -43,7 +43,7 @@ func (s *Rules) Repositories(r rules.RepositoriesRequest) (*rules.RepositoriesRe
 func (s *Rules) Search(r rules.SearchRequest, p paging.PagingParams) (*rules.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/rules/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/rules/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -92,7 +92,7 @@ func (s *Rules) SearchAll(r rules.SearchRequest) (*rules.SearchResponseAll, erro
 func (s *Rules) Show(r rules.ShowRequest) (*rules.ShowResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/rules/show", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/rules/show", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -119,7 +119,7 @@ func (s *Rules) Show(r rules.ShowRequest) (*rules.ShowResponse, error) {
 func (s *Rules) Tags(r rules.TagsRequest) (*rules.TagsResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/rules/tags", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/rules/tags", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -150,7 +150,7 @@ func (s *Rules) Update(r rules.UpdateRequest) (*rules.UpdateResponse, error) {
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/rules/update", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/rules/update", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

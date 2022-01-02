@@ -6,9 +6,10 @@ import paging "github.com/reinoudk/go-sonarcloud/sonarcloud/paging"
 
 // GroupsRequest Lists the groups a user belongs to. <br/>Requires the permission 'Administer' on the organization.
 type GroupsRequest struct {
-	Login    string `form:"login,omitempty"`    // A user login
-	Q        string `form:"q,omitempty"`        // Limit search to group names that contain the supplied string.
-	Selected string `form:"selected,omitempty"` // Depending on the value, show only selected items (selected=selected), deselected items (selected=deselected), or all items with their selection status (selected=all).
+	Login        string `form:"login,omitempty"`        // A user login
+	Organization string `form:"organization,omitempty"` // Organization key
+	Q            string `form:"q,omitempty"`            // Limit search to group names that contain the supplied string.
+	Selected     string `form:"selected,omitempty"`     // Depending on the value, show only selected items (selected=selected), deselected items (selected=deselected), or all items with their selection status (selected=all).
 }
 
 // GroupsResponse is the response for GroupsRequest

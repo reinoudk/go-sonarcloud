@@ -8,6 +8,7 @@ import paging "github.com/reinoudk/go-sonarcloud/sonarcloud/paging"
 type BulkDeleteRequest struct {
 	AnalyzedBefore    string `form:"analyzedBefore,omitempty"`    // Filter the projects for which last analysis is older than the given date (exclusive).<br> Either a date (server timezone) or datetime can be provided.
 	OnProvisionedOnly string `form:"onProvisionedOnly,omitempty"` // Filter the projects that are provisioned
+	Organization      string `form:"organization,omitempty"`      // The key of the organization
 	Projects          string `form:"projects,omitempty"`          // Comma-separated list of project keys
 	Q                 string `form:"q,omitempty"`                 // Limit to: <ul><li>component names that contain the supplied string</li><li>component keys that contain the supplied string</li></ul>
 	Qualifiers        string `form:"qualifiers,omitempty"`        // No longer used
@@ -33,10 +34,11 @@ type BulkUpdateKeyResponse struct {
 
 // CreateRequest Create a project.<br/>Requires 'Create Projects' permission
 type CreateRequest struct {
-	Branch     string `form:"branch,omitempty"`     // SCM Branch of the project. The key of the project will become key:branch, for instance 'SonarQube:branch-5.0'
-	Name       string `form:"name,omitempty"`       // Name of the project. If name is longer than 500, it is abbreviated.
-	Project    string `form:"project,omitempty"`    // Key of the project
-	Visibility string `form:"visibility,omitempty"` // Whether the created project should be visible to everyone, or only specific user/groups.<br/>If no visibility is specified, the default project visibility of the organization will be used.
+	Branch       string `form:"branch,omitempty"`       // SCM Branch of the project. The key of the project will become key:branch, for instance 'SonarQube:branch-5.0'
+	Name         string `form:"name,omitempty"`         // Name of the project. If name is longer than 500, it is abbreviated.
+	Organization string `form:"organization,omitempty"` // The key of the organization
+	Project      string `form:"project,omitempty"`      // Key of the project
+	Visibility   string `form:"visibility,omitempty"`   // Whether the created project should be visible to everyone, or only specific user/groups.<br/>If no visibility is specified, the default project visibility of the organization will be used.
 }
 
 // CreateResponse is the response for CreateRequest
@@ -57,6 +59,7 @@ type DeleteRequest struct {
 type SearchRequest struct {
 	AnalyzedBefore    string `form:"analyzedBefore,omitempty"`    // Filter the projects for which last analysis is older than the given date (exclusive).<br> Either a date (server timezone) or datetime can be provided.
 	OnProvisionedOnly string `form:"onProvisionedOnly,omitempty"` // Filter the projects that are provisioned
+	Organization      string `form:"organization,omitempty"`      // The key of the organization
 	Projects          string `form:"projects,omitempty"`          // Comma-separated list of project keys
 	Q                 string `form:"q,omitempty"`                 // Limit search to: <ul><li>component names that contain the supplied string</li><li>component keys that contain the supplied string</li></ul>
 	Qualifiers        string `form:"qualifiers,omitempty"`        // No longer used

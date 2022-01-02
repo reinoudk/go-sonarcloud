@@ -14,7 +14,7 @@ type Metrics service
 func (s *Metrics) Domains(r metrics.DomainsRequest) (*metrics.DomainsResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/metrics/domains", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/metrics/domains", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -41,7 +41,7 @@ func (s *Metrics) Domains(r metrics.DomainsRequest) (*metrics.DomainsResponse, e
 func (s *Metrics) Search(r metrics.SearchRequest, p paging.PagingParams) (*metrics.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/metrics/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/metrics/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -89,7 +89,7 @@ func (s *Metrics) SearchAll(r metrics.SearchRequest) (*metrics.SearchResponseAll
 func (s *Metrics) Types(r metrics.TypesRequest) (*metrics.TypesResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/metrics/types", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/metrics/types", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

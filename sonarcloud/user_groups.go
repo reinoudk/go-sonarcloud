@@ -20,7 +20,7 @@ func (s *UserGroups) AddUser(r user_groups.AddUserRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/user_groups/add_user", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/user_groups/add_user", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -46,7 +46,7 @@ func (s *UserGroups) Create(r user_groups.CreateRequest) (*user_groups.CreateRes
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/user_groups/create", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/user_groups/create", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -77,7 +77,7 @@ func (s *UserGroups) Delete(r user_groups.DeleteRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/user_groups/delete", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/user_groups/delete", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -103,7 +103,7 @@ func (s *UserGroups) RemoveUser(r user_groups.RemoveUserRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/user_groups/remove_user", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/user_groups/remove_user", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -125,7 +125,7 @@ func (s *UserGroups) RemoveUser(r user_groups.RemoveUserRequest) error {
 func (s *UserGroups) Search(r user_groups.SearchRequest, p paging.PagingParams) (*user_groups.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/user_groups/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/user_groups/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -177,7 +177,7 @@ func (s *UserGroups) Update(r user_groups.UpdateRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/user_groups/update", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/user_groups/update", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -199,7 +199,7 @@ func (s *UserGroups) Update(r user_groups.UpdateRequest) error {
 func (s *UserGroups) Users(r user_groups.UsersRequest, p paging.PagingParams) (*user_groups.UsersResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/user_groups/users", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/user_groups/users", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

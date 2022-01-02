@@ -98,14 +98,11 @@ func NewClient(org string, token string, client *http.Client) *Client {
 	return c
 }
 
-func (c *Client) NewRequest(method string, url string, body io.Reader) (*http.Request, error) {
-	req, err := http.NewRequest(method, url, body)
+func (c *Client) PostRequest(url string, body io.Reader) (*http.Request, error) {
+	req, err := http.NewRequest("POST", url, body)
 	if err != nil {
 		return nil, err
 	}
-	q := req.URL.Query()
-	q.Add("organization", c.org)
-	req.URL.RawQuery = q.Encode()
 
 	req.SetBasicAuth(c.token, "")
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -114,12 +111,12 @@ func (c *Client) NewRequest(method string, url string, body io.Reader) (*http.Re
 	return req, nil
 }
 
-func (c *Client) NewRequestWithParameters(method string, url string, params ...string) (*http.Request, error) {
+func (c *Client) GetRequest(url string, params ...string) (*http.Request, error) {
 	if l := len(params); l%2 != 0 {
 		return nil, fmt.Errorf("params must be an even number, %d given", l)
 	}
 
-	req, err := http.NewRequest(method, url, nil)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}

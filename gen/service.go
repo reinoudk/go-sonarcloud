@@ -140,8 +140,7 @@ func (s *Service) postServiceFunc(action Action, endpoint string) *Statement {
 		Line(),
 
 		// req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/<endpoint>", API), strings.NewReader(values.Encode()))
-		Id("req").Op(",").Err().Op(":=").Id("s").Dot("client").Dot("NewRequest").Call(
-			Lit("POST"),
+		Id("req").Op(",").Err().Op(":=").Id("s").Dot("client").Dot("PostRequest").Call(
 			Qual("fmt", "Sprintf").Call(
 				Lit(fmt.Sprintf("%%s/%s/%s", s.endpoint(), action.Key)),
 				Id("API"),
@@ -242,8 +241,7 @@ func (s *Service) getServiceFunc(action Action, endpoint string) *Statement {
 		Line(),
 
 		// req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/<endpoint>", API), params...)
-		Id("req").Op(",").Err().Op(":=").Id("s").Dot("client").Dot("NewRequestWithParameters").Call(
-			Lit("GET"),
+		Id("req").Op(",").Err().Op(":=").Id("s").Dot("client").Dot("GetRequest").Call(
 			Qual("fmt", "Sprintf").Call(
 				Lit(fmt.Sprintf("%%s/%s/%s", s.endpoint(), action.Key)),
 				Id("API"),

@@ -19,7 +19,7 @@ func (s *UserTokens) Generate(r user_tokens.GenerateRequest) (*user_tokens.Gener
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/user_tokens/generate", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/user_tokens/generate", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -50,7 +50,7 @@ func (s *UserTokens) Revoke(r user_tokens.RevokeRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/user_tokens/revoke", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/user_tokens/revoke", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -72,7 +72,7 @@ func (s *UserTokens) Revoke(r user_tokens.RevokeRequest) error {
 func (s *UserTokens) Search(r user_tokens.SearchRequest) (*user_tokens.SearchResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/user_tokens/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/user_tokens/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

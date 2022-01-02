@@ -14,7 +14,7 @@ type Components service
 func (s *Components) Search(r components.SearchRequest, p paging.PagingParams) (*components.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/components/search", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/components/search", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -62,7 +62,7 @@ func (s *Components) SearchAll(r components.SearchRequest) (*components.SearchRe
 func (s *Components) Show(r components.ShowRequest) (*components.ShowResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/components/show", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/components/show", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -89,7 +89,7 @@ func (s *Components) Show(r components.ShowRequest) (*components.ShowResponse, e
 func (s *Components) Tree(r components.TreeRequest, p paging.PagingParams) (*components.TreeResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/components/tree", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/components/tree", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

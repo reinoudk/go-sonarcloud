@@ -22,9 +22,7 @@ var skippedEndpoints = []string{
 }
 
 // These fields don't need to be in each request struct
-var skippedRequestFields = []string{
-	"organization", // the organization is part of the client config
-}
+var skippedRequestFields = []string{}
 
 const input = "gen/webservices.json"
 const packageName = "sonarcloud"

@@ -20,7 +20,7 @@ func (s *Permissions) AddGroup(r permissions.AddGroupRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/add_group", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/add_group", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -46,7 +46,7 @@ func (s *Permissions) AddGroupToTemplate(r permissions.AddGroupToTemplateRequest
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/add_group_to_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/add_group_to_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -72,7 +72,7 @@ func (s *Permissions) AddProjectCreatorToTemplate(r permissions.AddProjectCreato
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/add_project_creator_to_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/add_project_creator_to_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -98,7 +98,7 @@ func (s *Permissions) AddUser(r permissions.AddUserRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/add_user", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/add_user", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -124,7 +124,7 @@ func (s *Permissions) AddUserToTemplate(r permissions.AddUserToTemplateRequest) 
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/add_user_to_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/add_user_to_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -150,7 +150,7 @@ func (s *Permissions) ApplyTemplate(r permissions.ApplyTemplateRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/apply_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/apply_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -176,7 +176,7 @@ func (s *Permissions) BulkApplyTemplate(r permissions.BulkApplyTemplateRequest) 
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/bulk_apply_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/bulk_apply_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -202,7 +202,7 @@ func (s *Permissions) CreateTemplate(r permissions.CreateTemplateRequest) (*perm
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/create_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/create_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -233,7 +233,7 @@ func (s *Permissions) DeleteTemplate(r permissions.DeleteTemplateRequest) error 
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/delete_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/delete_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -259,7 +259,7 @@ func (s *Permissions) RemoveGroup(r permissions.RemoveGroupRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/remove_group", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/remove_group", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -285,7 +285,7 @@ func (s *Permissions) RemoveGroupFromTemplate(r permissions.RemoveGroupFromTempl
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/remove_group_from_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/remove_group_from_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -311,7 +311,7 @@ func (s *Permissions) RemoveProjectCreatorFromTemplate(r permissions.RemoveProje
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/remove_project_creator_from_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/remove_project_creator_from_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -337,7 +337,7 @@ func (s *Permissions) RemoveUser(r permissions.RemoveUserRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/remove_user", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/remove_user", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -363,7 +363,7 @@ func (s *Permissions) RemoveUserFromTemplate(r permissions.RemoveUserFromTemplat
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/remove_user_from_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/remove_user_from_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -385,7 +385,7 @@ func (s *Permissions) RemoveUserFromTemplate(r permissions.RemoveUserFromTemplat
 func (s *Permissions) SearchGlobalPermissions(r permissions.SearchGlobalPermissionsRequest) (*permissions.SearchGlobalPermissionsResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/permissions/search_global_permissions", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/permissions/search_global_permissions", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -412,7 +412,7 @@ func (s *Permissions) SearchGlobalPermissions(r permissions.SearchGlobalPermissi
 func (s *Permissions) SearchProjectPermissions(r permissions.SearchProjectPermissionsRequest, p paging.PagingParams) (*permissions.SearchProjectPermissionsResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/permissions/search_project_permissions", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/permissions/search_project_permissions", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -461,7 +461,7 @@ func (s *Permissions) SearchProjectPermissionsAll(r permissions.SearchProjectPer
 func (s *Permissions) SearchTemplates(r permissions.SearchTemplatesRequest) error {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/permissions/search_templates", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/permissions/search_templates", API), params...)
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -487,7 +487,7 @@ func (s *Permissions) SetDefaultTemplate(r permissions.SetDefaultTemplateRequest
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/set_default_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/set_default_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -513,7 +513,7 @@ func (s *Permissions) UpdateTemplate(r permissions.UpdateTemplateRequest) (*perm
 		return nil, fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/permissions/update_template", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/permissions/update_template", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

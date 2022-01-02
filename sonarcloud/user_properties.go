@@ -13,7 +13,7 @@ type UserProperties service
 func (s *UserProperties) Index(r user_properties.IndexRequest) (*user_properties.IndexResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/user_properties/index", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/user_properties/index", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

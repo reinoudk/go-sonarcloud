@@ -15,7 +15,7 @@ type Settings service
 func (s *Settings) ListDefinitions(r settings.ListDefinitionsRequest) (*settings.ListDefinitionsResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/settings/list_definitions", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/settings/list_definitions", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -46,7 +46,7 @@ func (s *Settings) Reset(r settings.ResetRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/settings/reset", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/settings/reset", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -72,7 +72,7 @@ func (s *Settings) Set(r settings.SetRequest) error {
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/settings/set", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/settings/set", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -94,7 +94,7 @@ func (s *Settings) Set(r settings.SetRequest) error {
 func (s *Settings) Values(r settings.ValuesRequest) (*settings.ValuesResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/settings/values", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/settings/values", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

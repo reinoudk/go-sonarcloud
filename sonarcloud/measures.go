@@ -14,7 +14,7 @@ type Measures service
 func (s *Measures) Component(r measures.ComponentRequest) (*measures.ComponentResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/measures/component", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/measures/component", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -41,7 +41,7 @@ func (s *Measures) Component(r measures.ComponentRequest) (*measures.ComponentRe
 func (s *Measures) ComponentTree(r measures.ComponentTreeRequest, p paging.PagingParams) (*measures.ComponentTreeResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/measures/component_tree", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/measures/component_tree", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -91,7 +91,7 @@ func (s *Measures) ComponentTreeAll(r measures.ComponentTreeRequest) (*measures.
 func (s *Measures) SearchHistory(r measures.SearchHistoryRequest, p paging.PagingParams) (*measures.SearchHistoryResponse, error) {
 	params := paramsFrom(r, p)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/measures/search_history", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/measures/search_history", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

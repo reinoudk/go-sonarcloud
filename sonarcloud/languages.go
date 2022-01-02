@@ -13,7 +13,7 @@ type Languages service
 func (s *Languages) List(r languages.ListRequest) (*languages.ListResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/languages/list", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/languages/list", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

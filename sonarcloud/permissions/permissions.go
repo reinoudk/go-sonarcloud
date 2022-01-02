@@ -6,17 +6,19 @@ import paging "github.com/reinoudk/go-sonarcloud/sonarcloud/paging"
 
 // AddGroupRequest Add permission to a group.<br /> This service defaults to global permissions, but can be limited to project permissions by providing project id or project key.<br /> The group name or group id must be provided. <br />Requires the permission 'Administer' on the specified project.
 type AddGroupRequest struct {
-	GroupId    string `form:"groupId,omitempty"`    // Group id
-	GroupName  string `form:"groupName,omitempty"`  // Group name or 'anyone' (case insensitive)
-	Permission string `form:"permission,omitempty"` // Permission<ul><li>Possible values for global permissions: admin, profileadmin, gateadmin, scan, provisioning</li><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
-	ProjectId  string `form:"projectId,omitempty"`  // Project id
-	ProjectKey string `form:"projectKey,omitempty"` // Project key
+	GroupId      string `form:"groupId,omitempty"`      // Group id
+	GroupName    string `form:"groupName,omitempty"`    // Group name or 'anyone' (case insensitive)
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
+	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for global permissions: admin, profileadmin, gateadmin, scan, provisioning</li><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
+	ProjectId    string `form:"projectId,omitempty"`    // Project id
+	ProjectKey   string `form:"projectKey,omitempty"`   // Project key
 }
 
 // AddGroupToTemplateRequest Add a group to a permission template.<br /> The group id or group name must be provided. <br />Requires the permission 'Administer' on the organization.
 type AddGroupToTemplateRequest struct {
 	GroupId      string `form:"groupId,omitempty"`      // Group id
 	GroupName    string `form:"groupName,omitempty"`    // Group name or 'anyone' (case insensitive)
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
 	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
 	TemplateId   string `form:"templateId,omitempty"`   // Template id
 	TemplateName string `form:"templateName,omitempty"` // Template name
@@ -24,6 +26,7 @@ type AddGroupToTemplateRequest struct {
 
 // AddProjectCreatorToTemplateRequest Add a project creator to a permission template.<br>Requires the permission 'Administer' on the organization.
 type AddProjectCreatorToTemplateRequest struct {
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
 	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
 	TemplateId   string `form:"templateId,omitempty"`   // Template id
 	TemplateName string `form:"templateName,omitempty"` // Template name
@@ -31,15 +34,17 @@ type AddProjectCreatorToTemplateRequest struct {
 
 // AddUserRequest Add permission to a user.<br /> This service defaults to global permissions, but can be limited to project permissions by providing project id or project key.<br />Requires the permission 'Administer' on the specified project.
 type AddUserRequest struct {
-	Login      string `form:"login,omitempty"`      // User login
-	Permission string `form:"permission,omitempty"` // Permission<ul><li>Possible values for global permissions: admin, profileadmin, gateadmin, scan, provisioning</li><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
-	ProjectId  string `form:"projectId,omitempty"`  // Project id
-	ProjectKey string `form:"projectKey,omitempty"` // Project key
+	Login        string `form:"login,omitempty"`        // User login
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
+	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for global permissions: admin, profileadmin, gateadmin, scan, provisioning</li><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
+	ProjectId    string `form:"projectId,omitempty"`    // Project id
+	ProjectKey   string `form:"projectKey,omitempty"`   // Project key
 }
 
 // AddUserToTemplateRequest Add a user to a permission template.<br /> Requires the permission 'Administer' on the organization.
 type AddUserToTemplateRequest struct {
 	Login        string `form:"login,omitempty"`        // User login
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
 	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
 	TemplateId   string `form:"templateId,omitempty"`   // Template id
 	TemplateName string `form:"templateName,omitempty"` // Template name
@@ -47,6 +52,7 @@ type AddUserToTemplateRequest struct {
 
 // ApplyTemplateRequest Apply a permission template to one project.<br>The project id or project key must be provided.<br>The template id or name must be provided.<br>Requires the permission 'Administer' on the organization.
 type ApplyTemplateRequest struct {
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
 	ProjectId    string `form:"projectId,omitempty"`    // Project id
 	ProjectKey   string `form:"projectKey,omitempty"`   // Project key
 	TemplateId   string `form:"templateId,omitempty"`   // Template id
@@ -57,6 +63,7 @@ type ApplyTemplateRequest struct {
 type BulkApplyTemplateRequest struct {
 	AnalyzedBefore    string `form:"analyzedBefore,omitempty"`    // Filter the projects for which last analysis is older than the given date (exclusive).<br> Either a date (server timezone) or datetime can be provided.
 	OnProvisionedOnly string `form:"onProvisionedOnly,omitempty"` // Filter the projects that are provisioned
+	Organization      string `form:"organization,omitempty"`      // Key of organization, used when group name is set
 	Projects          string `form:"projects,omitempty"`          // Comma-separated list of project keys
 	Q                 string `form:"q,omitempty"`                 // Limit search to: <ul><li>project names that contain the supplied string</li><li>project keys that are exactly the same as the supplied string</li></ul>
 	Qualifiers        string `form:"qualifiers,omitempty"`        // Comma-separated list of component qualifiers. Filter the results with the specified qualifiers. Possible values are:<ul><li>TRK - Projects</li></ul>
@@ -68,6 +75,7 @@ type BulkApplyTemplateRequest struct {
 type CreateTemplateRequest struct {
 	Description       string `form:"description,omitempty"`       // Description
 	Name              string `form:"name,omitempty"`              // Name
+	Organization      string `form:"organization,omitempty"`      // Key of organization, used when group name is set
 	ProjectKeyPattern string `form:"projectKeyPattern,omitempty"` // Project key pattern. Must be a valid Java regular expression
 }
 
@@ -82,23 +90,26 @@ type CreateTemplateResponse struct {
 
 // DeleteTemplateRequest Delete a permission template.<br />Requires the permission 'Administer' on the organization.
 type DeleteTemplateRequest struct {
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
 	TemplateId   string `form:"templateId,omitempty"`   // Template id
 	TemplateName string `form:"templateName,omitempty"` // Template name
 }
 
 // RemoveGroupRequest Remove a permission from a group.<br /> This service defaults to global permissions, but can be limited to project permissions by providing project id or project key.<br /> The group id or group name must be provided, not both.<br />Requires the permission 'Administer' on the specified project.
 type RemoveGroupRequest struct {
-	GroupId    string `form:"groupId,omitempty"`    // Group id
-	GroupName  string `form:"groupName,omitempty"`  // Group name or 'anyone' (case insensitive)
-	Permission string `form:"permission,omitempty"` // Permission<ul><li>Possible values for global permissions: admin, profileadmin, gateadmin, scan, provisioning</li><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
-	ProjectId  string `form:"projectId,omitempty"`  // Project id
-	ProjectKey string `form:"projectKey,omitempty"` // Project key
+	GroupId      string `form:"groupId,omitempty"`      // Group id
+	GroupName    string `form:"groupName,omitempty"`    // Group name or 'anyone' (case insensitive)
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
+	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for global permissions: admin, profileadmin, gateadmin, scan, provisioning</li><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
+	ProjectId    string `form:"projectId,omitempty"`    // Project id
+	ProjectKey   string `form:"projectKey,omitempty"`   // Project key
 }
 
 // RemoveGroupFromTemplateRequest Remove a group from a permission template.<br /> The group id or group name must be provided. <br />Requires the permission 'Administer' on the organization.
 type RemoveGroupFromTemplateRequest struct {
 	GroupId      string `form:"groupId,omitempty"`      // Group id
 	GroupName    string `form:"groupName,omitempty"`    // Group name or 'anyone' (case insensitive)
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
 	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
 	TemplateId   string `form:"templateId,omitempty"`   // Template id
 	TemplateName string `form:"templateName,omitempty"` // Template name
@@ -106,6 +117,7 @@ type RemoveGroupFromTemplateRequest struct {
 
 // RemoveProjectCreatorFromTemplateRequest Remove a project creator from a permission template.<br>Requires the permission 'Administer' on the organization.
 type RemoveProjectCreatorFromTemplateRequest struct {
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
 	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
 	TemplateId   string `form:"templateId,omitempty"`   // Template id
 	TemplateName string `form:"templateName,omitempty"` // Template name
@@ -113,15 +125,17 @@ type RemoveProjectCreatorFromTemplateRequest struct {
 
 // RemoveUserRequest Remove permission from a user.<br /> This service defaults to global permissions, but can be limited to project permissions by providing project id or project key.<br /> Requires the permission 'Administer' on the specified project.
 type RemoveUserRequest struct {
-	Login      string `form:"login,omitempty"`      // User login
-	Permission string `form:"permission,omitempty"` // Permission<ul><li>Possible values for global permissions: admin, profileadmin, gateadmin, scan, provisioning</li><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
-	ProjectId  string `form:"projectId,omitempty"`  // Project id
-	ProjectKey string `form:"projectKey,omitempty"` // Project key
+	Login        string `form:"login,omitempty"`        // User login
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
+	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for global permissions: admin, profileadmin, gateadmin, scan, provisioning</li><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
+	ProjectId    string `form:"projectId,omitempty"`    // Project id
+	ProjectKey   string `form:"projectKey,omitempty"`   // Project key
 }
 
 // RemoveUserFromTemplateRequest Remove a user from a permission template.<br /> Requires the permission 'Administer' on the organization.
 type RemoveUserFromTemplateRequest struct {
 	Login        string `form:"login,omitempty"`        // User login
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
 	Permission   string `form:"permission,omitempty"`   // Permission<ul><li>Possible values for project permissions admin, codeviewer, issueadmin, securityhotspotadmin, scan, user</li></ul>
 	TemplateId   string `form:"templateId,omitempty"`   // Template id
 	TemplateName string `form:"templateName,omitempty"` // Template name
@@ -129,7 +143,9 @@ type RemoveUserFromTemplateRequest struct {
 
 // SearchGlobalPermissionsRequest List global permissions. <br />Requires the following permission: 'Administer System'
 // Deprecated: this action has been deprecated since version 6.5
-type SearchGlobalPermissionsRequest struct{}
+type SearchGlobalPermissionsRequest struct {
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
+}
 
 // SearchGlobalPermissionsResponse is the response for SearchGlobalPermissionsRequest
 type SearchGlobalPermissionsResponse struct {
@@ -199,11 +215,13 @@ type SearchProjectPermissionsResponseAll struct {
 
 // SearchTemplatesRequest List permission templates.<br />Requires the permission 'Administer' on the organization.
 type SearchTemplatesRequest struct {
-	Q string `form:"q,omitempty"` // Limit search to permission template names that contain the supplied string.
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
+	Q            string `form:"q,omitempty"`            // Limit search to permission template names that contain the supplied string.
 }
 
 // SetDefaultTemplateRequest Set a permission template as default.<br />Requires the permission 'Administer' on the organization.
 type SetDefaultTemplateRequest struct {
+	Organization string `form:"organization,omitempty"` // Key of organization, used when group name is set
 	Qualifier    string `form:"qualifier,omitempty"`    // Project qualifier. Filter the results with the specified qualifier. Possible values are:<ul><li>TRK - Projects</li></ul>
 	TemplateId   string `form:"templateId,omitempty"`   // Template id
 	TemplateName string `form:"templateName,omitempty"` // Template name

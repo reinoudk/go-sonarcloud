@@ -4,13 +4,15 @@ package qualitygates
 
 // CopyRequest Copy a Quality Gate.<br>Requires the 'Administer Quality Gates' permission.
 type CopyRequest struct {
-	Id   string `form:"id,omitempty"`   // The ID of the source quality gate
-	Name string `form:"name,omitempty"` // The name of the quality gate to create
+	Id           string `form:"id,omitempty"`           // The ID of the source quality gate
+	Name         string `form:"name,omitempty"`         // The name of the quality gate to create
+	Organization string `form:"organization,omitempty"` // Organization key.
 }
 
 // CreateRequest Create a Quality Gate.<br>Requires the 'Administer Quality Gates' permission.
 type CreateRequest struct {
-	Name string `form:"name,omitempty"` // The name of the quality gate to create
+	Name         string `form:"name,omitempty"`         // The name of the quality gate to create
+	Organization string `form:"organization,omitempty"` // Organization key.
 }
 
 // CreateResponse is the response for CreateRequest
@@ -21,10 +23,11 @@ type CreateResponse struct {
 
 // CreateConditionRequest Add a new condition to a quality gate.<br>Requires the 'Administer Quality Gates' permission.
 type CreateConditionRequest struct {
-	Error  string `form:"error,omitempty"`  // Condition error threshold
-	GateId string `form:"gateId,omitempty"` // ID of the quality gate
-	Metric string `form:"metric,omitempty"` // Condition metric.<br/> Only metric of the following types are allowed:<ul><li>INT</li><li>MILLISEC</li><li>RATING</li><li>WORK_DUR</li><li>FLOAT</li><li>PERCENT</li><li>LEVEL</li></ul>Following metrics are forbidden:<ul><li>alert_status</li><li>security_hotspots</li><li>new_security_hotspots</li></ul>
-	Op     string `form:"op,omitempty"`     // Condition operator:<br/><ul><li>LT = is lower than</li><li>GT = is greater than</li></ul>
+	Error        string `form:"error,omitempty"`        // Condition error threshold
+	GateId       string `form:"gateId,omitempty"`       // ID of the quality gate
+	Metric       string `form:"metric,omitempty"`       // Condition metric.<br/> Only metric of the following types are allowed:<ul><li>INT</li><li>MILLISEC</li><li>RATING</li><li>WORK_DUR</li><li>FLOAT</li><li>PERCENT</li><li>LEVEL</li></ul>Following metrics are forbidden:<ul><li>alert_status</li><li>security_hotspots</li><li>new_security_hotspots</li></ul>
+	Op           string `form:"op,omitempty"`           // Condition operator:<br/><ul><li>LT = is lower than</li><li>GT = is greater than</li></ul>
+	Organization string `form:"organization,omitempty"` // Organization key.
 }
 
 // CreateConditionResponse is the response for CreateConditionRequest
@@ -38,23 +41,27 @@ type CreateConditionResponse struct {
 
 // DeleteConditionRequest Delete a condition from a quality gate.<br>Requires the 'Administer Quality Gates' permission.
 type DeleteConditionRequest struct {
-	Id string `form:"id,omitempty"` // Condition ID
+	Id           string `form:"id,omitempty"`           // Condition ID
+	Organization string `form:"organization,omitempty"` // Organization key.
 }
 
 // DeselectRequest Remove the association of a project from a quality gate.<br>Requires one of the following permissions:<ul><li>'Administer Quality Gates'</li><li>'Administer' rights on the project</li></ul>
 type DeselectRequest struct {
-	ProjectId  string `form:"projectId,omitempty"`  // Project id
-	ProjectKey string `form:"projectKey,omitempty"` // Project key
+	Organization string `form:"organization,omitempty"` // Organization key.
+	ProjectId    string `form:"projectId,omitempty"`    // Project id
+	ProjectKey   string `form:"projectKey,omitempty"`   // Project key
 }
 
 // DestroyRequest Delete a Quality Gate.<br>Requires the 'Administer Quality Gates' permission.
 type DestroyRequest struct {
-	Id string `form:"id,omitempty"` // ID of the quality gate to delete
+	Id           string `form:"id,omitempty"`           // ID of the quality gate to delete
+	Organization string `form:"organization,omitempty"` // Organization key.
 }
 
 // GetByProjectRequest Get the quality gate of a project.<br />Requires one of the following permissions:<ul><li>'Administer' rights on the specified project</li><li>'Browse' on the specified project</li></ul>
 type GetByProjectRequest struct {
-	Project string `form:"project,omitempty"` // Project key
+	Organization string `form:"organization,omitempty"` // Organization key.
+	Project      string `form:"project,omitempty"`      // Project key
 }
 
 // GetByProjectResponse is the response for GetByProjectRequest
@@ -67,7 +74,9 @@ type GetByProjectResponse struct {
 }
 
 // ListRequest Get a list of quality gates
-type ListRequest struct{}
+type ListRequest struct {
+	Organization string `form:"organization,omitempty"` // Organization key.
+}
 
 // ListResponse is the response for ListRequest
 type ListResponse struct {
@@ -130,17 +139,19 @@ type ProjectStatusResponse struct {
 
 // RenameRequest Rename a Quality Gate.<br>Requires the 'Administer Quality Gates' permission.
 type RenameRequest struct {
-	Id   string `form:"id,omitempty"`   // ID of the quality gate to rename
-	Name string `form:"name,omitempty"` // New name of the quality gate
+	Id           string `form:"id,omitempty"`           // ID of the quality gate to rename
+	Name         string `form:"name,omitempty"`         // New name of the quality gate
+	Organization string `form:"organization,omitempty"` // Organization key.
 }
 
 // SearchRequest Search for projects associated (or not) to a quality gate.<br/>Only authorized projects for current user will be returned.
 type SearchRequest struct {
-	GateId   string `form:"gateId,omitempty"`   // Quality Gate ID
-	Page     string `form:"page,omitempty"`     // Page number
-	PageSize string `form:"pageSize,omitempty"` // Page size
-	Query    string `form:"query,omitempty"`    // To search for projects containing this string. If this parameter is set, "selected" is set to "all".
-	Selected string `form:"selected,omitempty"` // Depending on the value, show only selected items (selected=selected), deselected items (selected=deselected), or all items with their selection status (selected=all).
+	GateId       string `form:"gateId,omitempty"`       // Quality Gate ID
+	Organization string `form:"organization,omitempty"` // Organization key.
+	Page         string `form:"page,omitempty"`         // Page number
+	PageSize     string `form:"pageSize,omitempty"`     // Page size
+	Query        string `form:"query,omitempty"`        // To search for projects containing this string. If this parameter is set, "selected" is set to "all".
+	Selected     string `form:"selected,omitempty"`     // Depending on the value, show only selected items (selected=selected), deselected items (selected=deselected), or all items with their selection status (selected=all).
 }
 
 // SearchResponse is the response for SearchRequest
@@ -160,20 +171,23 @@ type SearchResponse struct {
 
 // SelectRequest Associate a project to a quality gate.<br>The 'projectId' or 'projectKey' must be provided.<br>Project id as a numeric value is deprecated since 6.1. Please use the id similar to 'AU-TpxcA-iU5OvuD2FLz'.<br>Requires the 'Administer Quality Gates' permission.
 type SelectRequest struct {
-	GateId     string `form:"gateId,omitempty"`     // Quality gate id
-	ProjectId  string `form:"projectId,omitempty"`  // Project id. Project id as an numeric value is deprecated since 6.1
-	ProjectKey string `form:"projectKey,omitempty"` // Project key
+	GateId       string `form:"gateId,omitempty"`       // Quality gate id
+	Organization string `form:"organization,omitempty"` // Organization key.
+	ProjectId    string `form:"projectId,omitempty"`    // Project id. Project id as an numeric value is deprecated since 6.1
+	ProjectKey   string `form:"projectKey,omitempty"`   // Project key
 }
 
 // SetAsDefaultRequest Set a quality gate as the default quality gate.<br>Requires the 'Administer Quality Gates' permission.
 type SetAsDefaultRequest struct {
-	Id string `form:"id,omitempty"` // ID of the quality gate to set as default
+	Id           string `form:"id,omitempty"`           // ID of the quality gate to set as default
+	Organization string `form:"organization,omitempty"` // Organization key.
 }
 
 // ShowRequest Display the details of a quality gate
 type ShowRequest struct {
-	Id   string `form:"id,omitempty"`   // ID of the quality gate. Either id or name must be set
-	Name string `form:"name,omitempty"` // Name of the quality gate. Either id or name must be set
+	Id           string `form:"id,omitempty"`           // ID of the quality gate. Either id or name must be set
+	Name         string `form:"name,omitempty"`         // Name of the quality gate. Either id or name must be set
+	Organization string `form:"organization,omitempty"` // Organization key.
 }
 
 // ShowResponse is the response for ShowRequest
@@ -210,8 +224,9 @@ type UnsetDefaultResponse struct {
 
 // UpdateConditionRequest Update a condition attached to a quality gate.<br>Requires the 'Administer Quality Gates' permission.
 type UpdateConditionRequest struct {
-	Error  string `form:"error,omitempty"`  // Condition error threshold
-	Id     string `form:"id,omitempty"`     // Condition ID
-	Metric string `form:"metric,omitempty"` // Condition metric.<br/> Only metric of the following types are allowed:<ul><li>INT</li><li>MILLISEC</li><li>RATING</li><li>WORK_DUR</li><li>FLOAT</li><li>PERCENT</li><li>LEVEL</li></ul>Following metrics are forbidden:<ul><li>alert_status</li><li>security_hotspots</li><li>new_security_hotspots</li></ul>
-	Op     string `form:"op,omitempty"`     // Condition operator:<br/><ul><li>LT = is lower than</li><li>GT = is greater than</li></ul>
+	Error        string `form:"error,omitempty"`        // Condition error threshold
+	Id           string `form:"id,omitempty"`           // Condition ID
+	Metric       string `form:"metric,omitempty"`       // Condition metric.<br/> Only metric of the following types are allowed:<ul><li>INT</li><li>MILLISEC</li><li>RATING</li><li>WORK_DUR</li><li>FLOAT</li><li>PERCENT</li><li>LEVEL</li></ul>Following metrics are forbidden:<ul><li>alert_status</li><li>security_hotspots</li><li>new_security_hotspots</li></ul>
+	Op           string `form:"op,omitempty"`           // Condition operator:<br/><ul><li>LT = is lower than</li><li>GT = is greater than</li></ul>
+	Organization string `form:"organization,omitempty"` // Organization key.
 }

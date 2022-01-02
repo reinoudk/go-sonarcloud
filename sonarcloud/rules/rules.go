@@ -32,11 +32,13 @@ type SearchRequest struct {
 	Inheritance         string `form:"inheritance,omitempty"`         // Comma-separated list of values of inheritance for a rule within a quality profile. Used only if the parameter 'activation' is set.
 	IsTemplate          string `form:"is_template,omitempty"`         // Filter template rules
 	Languages           string `form:"languages,omitempty"`           // Comma-separated list of languages
+	Organization        string `form:"organization,omitempty"`        // Organization key
 	OwaspTop10          string `form:"owaspTop10,omitempty"`          // Comma-separated list of OWASP Top 10 lowercase categories.
 	Q                   string `form:"q,omitempty"`                   // UTF-8 search query
 	Qprofile            string `form:"qprofile,omitempty"`            // Quality profile key to filter on. Used only if the parameter 'activation' is set.
 	Repositories        string `form:"repositories,omitempty"`        // Comma-separated list of repositories
 	RuleKey             string `form:"rule_key,omitempty"`            // Key of rule to search for
+	RuleKeys            string `form:"rule_keys,omitempty"`           // Rule keys
 	S                   string `form:"s,omitempty"`                   // Sort field
 	SansTop25           string `form:"sansTop25,omitempty"`           // Comma-separated list of SANS Top 25 categories.
 	Severities          string `form:"severities,omitempty"`          // Comma-separated list of default severities. Not the same than severity of rules in Quality profiles.
@@ -190,8 +192,9 @@ type SearchResponseAll struct {
 
 // ShowRequest Get detailed information about a rule<br>Since 5.5, following fields in the response have been deprecated :<ul><li>"effortToFixDescription" becomes "gapDescription"</li><li>"debtRemFnCoeff" becomes "remFnGapMultiplier"</li><li>"defaultDebtRemFnCoeff" becomes "defaultRemFnGapMultiplier"</li><li>"debtRemFnOffset" becomes "remFnBaseEffort"</li><li>"defaultDebtRemFnOffset" becomes "defaultRemFnBaseEffort"</li><li>"debtOverloaded" becomes "remFnOverloaded"</li></ul>In 7.1, the field 'scope' has been added.
 type ShowRequest struct {
-	Actives string `form:"actives,omitempty"` // Show rule's activations for all profiles ("active rules")
-	Key     string `form:"key,omitempty"`     // Rule key
+	Actives      string `form:"actives,omitempty"`      // Show rule's activations for all profiles ("active rules")
+	Key          string `form:"key,omitempty"`          // Rule key
+	Organization string `form:"organization,omitempty"` // Organization key
 }
 
 // ShowResponse is the response for ShowRequest
@@ -239,7 +242,8 @@ type ShowResponse struct {
 
 // TagsRequest List rule tags
 type TagsRequest struct {
-	Q string `form:"q,omitempty"` // Limit search to tags that contain the supplied string.
+	Organization string `form:"organization,omitempty"` // Organization key
+	Q            string `form:"q,omitempty"`            // Limit search to tags that contain the supplied string.
 }
 
 // TagsResponse is the response for TagsRequest
@@ -254,6 +258,7 @@ type UpdateRequest struct {
 	MarkdownDescription        string `form:"markdown_description,omitempty"`          // Rule description (mandatory for custom rule and manual rule)
 	MarkdownNote               string `form:"markdown_note,omitempty"`                 // Optional note in markdown format. Use empty value to remove current note. Note is not changed if the parameter is not set.
 	Name                       string `form:"name,omitempty"`                          // Rule name (mandatory for custom rule)
+	Organization               string `form:"organization,omitempty"`                  // Organization key
 	Params                     string `form:"params,omitempty"`                        // Parameters as semi-colon list of <key>=<value>, for example 'params=key1=v1;key2=v2' (Only when updating a custom rule)
 	RemediationFnBaseEffort    string `form:"remediation_fn_base_effort,omitempty"`    // Base effort of the remediation function of the rule
 	RemediationFnType          string `form:"remediation_fn_type,omitempty"`           // Type of the remediation function of the rule

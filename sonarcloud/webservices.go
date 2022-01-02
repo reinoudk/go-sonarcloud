@@ -13,7 +13,7 @@ type Webservices service
 func (s *Webservices) List(r webservices.ListRequest) (*webservices.ListResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/webservices/list", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/webservices/list", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
@@ -40,7 +40,7 @@ func (s *Webservices) List(r webservices.ListRequest) (*webservices.ListResponse
 func (s *Webservices) ResponseExample(r webservices.ResponseExampleRequest) (*webservices.ResponseExampleResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/webservices/response_example", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/webservices/response_example", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}

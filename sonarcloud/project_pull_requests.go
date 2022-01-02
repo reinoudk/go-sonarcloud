@@ -19,7 +19,7 @@ func (s *ProjectPullRequests) Delete(r project_pull_requests.DeleteRequest) erro
 		return fmt.Errorf("could not encode form values: %+v", err)
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/project_pull_requests/delete", API), strings.NewReader(values.Encode()))
+	req, err := s.client.PostRequest(fmt.Sprintf("%s/project_pull_requests/delete", API), strings.NewReader(values.Encode()))
 	if err != nil {
 		return fmt.Errorf("could not create request: %+v", err)
 	}
@@ -41,7 +41,7 @@ func (s *ProjectPullRequests) Delete(r project_pull_requests.DeleteRequest) erro
 func (s *ProjectPullRequests) List(r project_pull_requests.ListRequest) (*project_pull_requests.ListResponse, error) {
 	params := paramsFrom(r)
 
-	req, err := s.client.NewRequestWithParameters("GET", fmt.Sprintf("%s/project_pull_requests/list", API), params...)
+	req, err := s.client.GetRequest(fmt.Sprintf("%s/project_pull_requests/list", API), params...)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %+v", err)
 	}
