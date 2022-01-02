@@ -445,7 +445,7 @@ func (s *Permissions) SearchProjectPermissionsAll(r permissions.SearchProjectPer
 	for {
 		res, err := s.SearchProjectPermissions(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to permissions.SearchProjectPermissions: %+v", err)
 		}
 		response.Permissions = append(response.Permissions, res.Permissions...)
 		response.Projects = append(response.Projects, res.Projects...)

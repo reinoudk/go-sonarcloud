@@ -132,7 +132,7 @@ func (s *ProjectAnalyses) SearchAll(r project_analyses.SearchRequest) (*project_
 	for {
 		res, err := s.Search(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to project_analyses.Search: %+v", err)
 		}
 		response.Analyses = append(response.Analyses, res.Analyses...)
 		if res.GetPaging().End() {

@@ -310,7 +310,7 @@ func (s *Service) getServiceFunc(action Action, endpoint string) *Statement {
 
 func (s *Service) getAllServiceFunc(action Action, endpoint string, field Field) *Statement {
 	// start function signature without return type
-	// func(s *<service id>) <action id>(r <request type all>)
+	// func(s *<service id>) <action id>All(r <request type>)
 	statement := Func().Parens(Id("s").Op("*").Id(s.id())).Id(action.serviceAllFuncName())
 	statement.Params(
 		Id("r").Qual(qualifier(endpoint), action.requestTypeName()),
@@ -363,12 +363,12 @@ func (s *Service) getAllServiceFunc(action Action, endpoint string, field Field)
 
 	loopBody := &Statement{}
 	loopBody.Add(
-		//	res, err := s.Search(r, p)
+		//	res, err := s.<action id>(r, p)
 		//	if err != nil {
-		//		return nil, fmt.Errorf("could not search projects: %+v", err)
+		//		return nil, fmt.Errorf("error during <action id>All: %+v", err)
 		//	}
 		Id("res").Op(",").Err().Op(":=").Id("s").Dot(action.serviceFuncName()).Call(Id("r"),  Id("p")),
-		ifError(action, "could not search all projects: %+v"),
+		ifError(action, fmt.Sprintf("error during call to %s.%s: %%+v", endpoint, action.serviceFuncName())),
 	)
 
 	// Add update statements for each accessor

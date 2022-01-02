@@ -47,7 +47,7 @@ func (s *Components) SearchAll(r components.SearchRequest) (*components.SearchRe
 	for {
 		res, err := s.Search(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to components.Search: %+v", err)
 		}
 		response.Components = append(response.Components, res.Components...)
 		if res.GetPaging().End() {
@@ -122,7 +122,7 @@ func (s *Components) TreeAll(r components.TreeRequest) (*components.TreeResponse
 	for {
 		res, err := s.Tree(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to components.Tree: %+v", err)
 		}
 		response.Components = append(response.Components, res.Components...)
 		if res.GetPaging().End() {

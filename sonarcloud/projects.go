@@ -163,7 +163,7 @@ func (s *Projects) SearchAll(r projects.SearchRequest) (*projects.SearchResponse
 	for {
 		res, err := s.Search(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to projects.Search: %+v", err)
 		}
 		response.Components = append(response.Components, res.Components...)
 		if res.GetPaging().End() {

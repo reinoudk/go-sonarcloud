@@ -289,7 +289,7 @@ func (s *Issues) SearchAll(r issues.SearchRequest) (*issues.SearchResponseAll, e
 	for {
 		res, err := s.Search(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to issues.Search: %+v", err)
 		}
 		response.Components = append(response.Components, res.Components...)
 		response.Issues = append(response.Issues, res.Issues...)

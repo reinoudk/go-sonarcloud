@@ -74,7 +74,7 @@ func (s *Metrics) SearchAll(r metrics.SearchRequest) (*metrics.SearchResponseAll
 	for {
 		res, err := s.Search(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to metrics.Search: %+v", err)
 		}
 		response.Metrics = append(response.Metrics, res.Metrics...)
 		if res.GetPaging().End() {

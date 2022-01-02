@@ -106,7 +106,7 @@ func (s *Webhooks) DeliveriesAll(r webhooks.DeliveriesRequest) (*webhooks.Delive
 	for {
 		res, err := s.Deliveries(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to webhooks.Deliveries: %+v", err)
 		}
 		response.Deliveries = append(response.Deliveries, res.Deliveries...)
 		if res.GetPaging().End() {

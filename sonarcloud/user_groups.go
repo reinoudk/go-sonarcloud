@@ -158,7 +158,7 @@ func (s *UserGroups) SearchAll(r user_groups.SearchRequest) (*user_groups.Search
 	for {
 		res, err := s.Search(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to user_groups.Search: %+v", err)
 		}
 		response.Groups = append(response.Groups, res.Groups...)
 		if res.GetPaging().End() {
@@ -232,7 +232,7 @@ func (s *UserGroups) UsersAll(r user_groups.UsersRequest) (*user_groups.UsersRes
 	for {
 		res, err := s.Users(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to user_groups.Users: %+v", err)
 		}
 		response.Users = append(response.Users, res.Users...)
 		if res.GetPaging().End() {

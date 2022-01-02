@@ -74,7 +74,7 @@ func (s *Measures) ComponentTreeAll(r measures.ComponentTreeRequest) (*measures.
 	for {
 		res, err := s.ComponentTree(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to measures.ComponentTree: %+v", err)
 		}
 		response.Components = append(response.Components, res.Components...)
 		response.Metrics = append(response.Metrics, res.Metrics...)
@@ -124,7 +124,7 @@ func (s *Measures) SearchHistoryAll(r measures.SearchHistoryRequest) (*measures.
 	for {
 		res, err := s.SearchHistory(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to measures.SearchHistory: %+v", err)
 		}
 		response.Measures = append(response.Measures, res.Measures...)
 		if res.GetPaging().End() {

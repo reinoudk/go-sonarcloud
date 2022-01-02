@@ -47,7 +47,7 @@ func (s *Users) GroupsAll(r users.GroupsRequest) (*users.GroupsResponseAll, erro
 	for {
 		res, err := s.Groups(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to users.Groups: %+v", err)
 		}
 		response.Groups = append(response.Groups, res.Groups...)
 		if res.GetPaging().End() {
@@ -95,7 +95,7 @@ func (s *Users) SearchAll(r users.SearchRequest) (*users.SearchResponseAll, erro
 	for {
 		res, err := s.Search(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to users.Search: %+v", err)
 		}
 		response.Users = append(response.Users, res.Users...)
 		if res.GetPaging().End() {

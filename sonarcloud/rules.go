@@ -76,7 +76,7 @@ func (s *Rules) SearchAll(r rules.SearchRequest) (*rules.SearchResponseAll, erro
 	for {
 		res, err := s.Search(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to rules.Search: %+v", err)
 		}
 		response.Facets = append(response.Facets, res.Facets...)
 		response.Rules = append(response.Rules, res.Rules...)

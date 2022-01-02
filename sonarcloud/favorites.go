@@ -101,7 +101,7 @@ func (s *Favorites) SearchAll(r favorites.SearchRequest) (*favorites.SearchRespo
 	for {
 		res, err := s.Search(r, p)
 		if err != nil {
-			return nil, fmt.Errorf("could not search all projects: %+v", err)
+			return nil, fmt.Errorf("error during call to favorites.Search: %+v", err)
 		}
 		response.Favorites = append(response.Favorites, res.Favorites...)
 		if res.GetPaging().End() {
