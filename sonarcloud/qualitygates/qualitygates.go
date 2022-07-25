@@ -32,11 +32,11 @@ type CreateConditionRequest struct {
 
 // CreateConditionResponse is the response for CreateConditionRequest
 type CreateConditionResponse struct {
-	Error   float64 `json:"error,omitempty"`
+	Error   string  `json:"error,omitempty"`
 	Id      float64 `json:"id,omitempty"`
 	Metric  string  `json:"metric,omitempty"`
 	Op      string  `json:"op,omitempty"`
-	Warning float64 `json:"warning,omitempty"`
+	Warning string  `json:"warning,omitempty"`
 }
 
 // DeleteConditionRequest Delete a condition from a quality gate.<br>Requires the 'Administer Quality Gates' permission.
@@ -94,7 +94,7 @@ type ListResponse struct {
 			SetAsDefault      bool `json:"setAsDefault,omitempty"`
 		} `json:"actions,omitempty"`
 		Conditions []struct {
-			Error  float64 `json:"error,omitempty"`
+			Error  string  `json:"error,omitempty"`
 			Id     float64 `json:"id,omitempty"`
 			Metric string  `json:"metric,omitempty"`
 			Op     string  `json:"op,omitempty"`
@@ -119,9 +119,9 @@ type ProjectStatusRequest struct {
 type ProjectStatusResponse struct {
 	ProjectStatus struct {
 		Conditions []struct {
-			ActualValue    float64 `json:"actualValue,omitempty"`
+			ActualValue    string  `json:"actualValue,omitempty"`
 			Comparator     string  `json:"comparator,omitempty"`
-			ErrorThreshold float64 `json:"errorThreshold,omitempty"`
+			ErrorThreshold string  `json:"errorThreshold,omitempty"`
 			MetricKey      string  `json:"metricKey,omitempty"`
 			PeriodIndex    float64 `json:"periodIndex,omitempty"`
 			Status         string  `json:"status,omitempty"`
@@ -201,7 +201,7 @@ type ShowResponse struct {
 		SetAsDefault      bool `json:"setAsDefault,omitempty"`
 	} `json:"actions,omitempty"`
 	Conditions []struct {
-		Error  float64 `json:"error,omitempty"`
+		Error  string  `json:"error,omitempty"`
 		Id     float64 `json:"id,omitempty"`
 		Metric string  `json:"metric,omitempty"`
 		Op     string  `json:"op,omitempty"`

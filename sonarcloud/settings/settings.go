@@ -11,7 +11,7 @@ type ListDefinitionsRequest struct {
 type ListDefinitionsResponse struct {
 	Definitions []struct {
 		Category     string   `json:"category,omitempty"`
-		DefaultValue float64  `json:"defaultValue,omitempty"`
+		DefaultValue string   `json:"defaultValue,omitempty"`
 		Description  string   `json:"description,omitempty"`
 		Fields       []string `json:"fields,omitempty"`
 		Key          string   `json:"key,omitempty"`

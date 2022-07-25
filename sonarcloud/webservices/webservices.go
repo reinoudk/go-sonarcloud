@@ -10,14 +10,14 @@ type ListResponse struct {
 	WebServices []struct {
 		Actions []struct {
 			Changelog []struct {
-				Description string  `json:"description,omitempty"`
-				Version     float64 `json:"version,omitempty"`
+				Description string `json:"description,omitempty"`
+				Version     string `json:"version,omitempty"`
 			} `json:"changelog,omitempty"`
-			DeprecatedSince    float64 `json:"deprecatedSince,omitempty"`
-			Description        string  `json:"description,omitempty"`
-			HasResponseExample bool    `json:"hasResponseExample,omitempty"`
-			Internal           bool    `json:"internal,omitempty"`
-			Key                string  `json:"key,omitempty"`
+			DeprecatedSince    string `json:"deprecatedSince,omitempty"`
+			Description        string `json:"description,omitempty"`
+			HasResponseExample bool   `json:"hasResponseExample,omitempty"`
+			Internal           bool   `json:"internal,omitempty"`
+			Key                string `json:"key,omitempty"`
 			Params             []struct {
 				Internal     bool    `json:"internal,omitempty"`
 				Key          string  `json:"key,omitempty"`

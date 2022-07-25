@@ -22,8 +22,8 @@ type ComponentResponse struct {
 		Key      string `json:"key,omitempty"`
 		Language string `json:"language,omitempty"`
 		Measures []struct {
-			Metric string  `json:"metric,omitempty"`
-			Value  float64 `json:"value,omitempty"`
+			Metric string `json:"metric,omitempty"`
+			Value  string `json:"value,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
 		Path      string `json:"path,omitempty"`
@@ -76,7 +76,7 @@ type ComponentTreeResponse struct {
 			Metric  string `json:"metric,omitempty"`
 			Periods []struct {
 				Index float64 `json:"index,omitempty"`
-				Value float64 `json:"value,omitempty"`
+				Value string  `json:"value,omitempty"`
 			} `json:"periods,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
@@ -89,7 +89,7 @@ type ComponentTreeResponse struct {
 			Metric  string `json:"metric,omitempty"`
 			Periods []struct {
 				Index float64 `json:"index,omitempty"`
-				Value float64 `json:"value,omitempty"`
+				Value string  `json:"value,omitempty"`
 			} `json:"periods,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
@@ -129,7 +129,7 @@ type ComponentTreeResponseAll struct {
 			Metric  string `json:"metric,omitempty"`
 			Periods []struct {
 				Index float64 `json:"index,omitempty"`
-				Value float64 `json:"value,omitempty"`
+				Value string  `json:"value,omitempty"`
 			} `json:"periods,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
@@ -142,7 +142,7 @@ type ComponentTreeResponseAll struct {
 			Metric  string `json:"metric,omitempty"`
 			Periods []struct {
 				Index float64 `json:"index,omitempty"`
-				Value float64 `json:"value,omitempty"`
+				Value string  `json:"value,omitempty"`
 			} `json:"periods,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
@@ -182,8 +182,8 @@ type SearchHistoryRequest struct {
 type SearchHistoryResponse struct {
 	Measures []struct {
 		History []struct {
-			Date  string  `json:"date,omitempty"`
-			Value float64 `json:"value,omitempty"`
+			Date  string `json:"date,omitempty"`
+			Value string `json:"value,omitempty"`
 		} `json:"history,omitempty"`
 		Metric string `json:"metric,omitempty"`
 	} `json:"measures,omitempty"`
@@ -199,8 +199,8 @@ func (r *SearchHistoryResponse) GetPaging() *paging.Paging {
 type SearchHistoryResponseAll struct {
 	Measures []struct {
 		History []struct {
-			Date  string  `json:"date,omitempty"`
-			Value float64 `json:"value,omitempty"`
+			Date  string `json:"date,omitempty"`
+			Value string `json:"value,omitempty"`
 		} `json:"history,omitempty"`
 		Metric string `json:"metric,omitempty"`
 	} `json:"measures,omitempty"`
