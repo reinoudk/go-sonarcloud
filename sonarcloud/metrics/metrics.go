@@ -26,7 +26,7 @@ type SearchResponse struct {
 		Direction   float64 `json:"direction,omitempty"`
 		Domain      string  `json:"domain,omitempty"`
 		Hidden      bool    `json:"hidden,omitempty"`
-		Id          float64 `json:"id,omitempty"`
+		Id          string  `json:"id,omitempty"`
 		Key         string  `json:"key,omitempty"`
 		Name        string  `json:"name,omitempty"`
 		Qualitative bool    `json:"qualitative,omitempty"`
@@ -55,7 +55,7 @@ type SearchResponseAll struct {
 		Direction   float64 `json:"direction,omitempty"`
 		Domain      string  `json:"domain,omitempty"`
 		Hidden      bool    `json:"hidden,omitempty"`
-		Id          float64 `json:"id,omitempty"`
+		Id          string  `json:"id,omitempty"`
 		Key         string  `json:"key,omitempty"`
 		Name        string  `json:"name,omitempty"`
 		Qualitative bool    `json:"qualitative,omitempty"`

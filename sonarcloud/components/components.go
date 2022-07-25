@@ -48,24 +48,24 @@ type ShowRequest struct {
 // ShowResponse is the response for ShowRequest
 type ShowResponse struct {
 	Ancestors []struct {
-		AnalysisDate string  `json:"analysisDate,omitempty"`
-		Key          string  `json:"key,omitempty"`
-		Name         string  `json:"name,omitempty"`
-		Organization string  `json:"organization,omitempty"`
-		Path         string  `json:"path,omitempty"`
-		Qualifier    string  `json:"qualifier,omitempty"`
-		Version      float64 `json:"version,omitempty"`
+		AnalysisDate string `json:"analysisDate,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Name         string `json:"name,omitempty"`
+		Organization string `json:"organization,omitempty"`
+		Path         string `json:"path,omitempty"`
+		Qualifier    string `json:"qualifier,omitempty"`
+		Version      string `json:"version,omitempty"`
 	} `json:"ancestors,omitempty"`
 	Component struct {
-		AnalysisDate   string  `json:"analysisDate,omitempty"`
-		Key            string  `json:"key,omitempty"`
-		Language       string  `json:"language,omitempty"`
-		LeakPeriodDate string  `json:"leakPeriodDate,omitempty"`
-		Name           string  `json:"name,omitempty"`
-		Organization   string  `json:"organization,omitempty"`
-		Path           string  `json:"path,omitempty"`
-		Qualifier      string  `json:"qualifier,omitempty"`
-		Version        float64 `json:"version,omitempty"`
+		AnalysisDate   string `json:"analysisDate,omitempty"`
+		Key            string `json:"key,omitempty"`
+		Language       string `json:"language,omitempty"`
+		LeakPeriodDate string `json:"leakPeriodDate,omitempty"`
+		Name           string `json:"name,omitempty"`
+		Organization   string `json:"organization,omitempty"`
+		Path           string `json:"path,omitempty"`
+		Qualifier      string `json:"qualifier,omitempty"`
+		Version        string `json:"version,omitempty"`
 	} `json:"component,omitempty"`
 }
 

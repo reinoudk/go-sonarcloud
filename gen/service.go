@@ -25,6 +25,8 @@ func (s *Service) endpoint() string {
 }
 
 func (s *Service) process(output string) error {
+	overrides := NewOverrides()
+
 	endpoint := s.endpoint()
 	if contains(endpoint, skippedEndpoints) {
 		fmt.Printf("Skipping endpoint '%s'\n", endpoint)
@@ -44,7 +46,10 @@ func (s *Service) process(output string) error {
 	serviceFile.Add(serviceType)
 
 	for _, action := range s.Actions {
-		requestStruct := action.requestStruct()
+		fmt.Printf("Processing '%s' - '%s'\n", s.endpoint(), action.Key)
+
+		requestStructGenerator := NewRequestStructGenerator(s, &action)
+		requestStruct := requestStructGenerator.generate()
 		typesFile.Add(requestStruct)
 
 		var responseField Field = &EmptyField{}
@@ -55,13 +60,16 @@ func (s *Service) process(output string) error {
 				return fmt.Errorf("could not fetch example: %+v", err)
 			}
 
-			responseField, err = action.responseField(example)
+			parser := NewFieldParser(s, &action, overrides.Filter(s.endpoint(), action.Key))
+			responseFieldsGenerator := NewResponseFieldsGenerator(parser)
+
+			responseField, err = responseFieldsGenerator.generate(action.responseTypeName(), example)
 			if err != nil {
 				return fmt.Errorf("could not collect response fields: %+v", err)
 			}
 
 			if action.hasPaging() {
-				responseFieldWithoutPaging, err = action.responseFieldWithoutPaging(example)
+				responseFieldWithoutPaging, err = responseFieldsGenerator.generatedWithoutPaging(action.responseAllTypeName(), example)
 				if err != nil {
 					return fmt.Errorf("could not extract collection field: %+v", err)
 				}
@@ -330,7 +338,7 @@ func (s *Service) getAllServiceFunc(action Action, endpoint string, field Field)
 		switch mapField.fields[i].(type) {
 		case *SliceField:
 			// response.<accessor> = append(response.<accessor>, res.<accessor>...)
-			updateStatements[i] =  Id("response").Dot(accessor).Op("=").Id("append").Call(
+			updateStatements[i] = Id("response").Dot(accessor).Op("=").Id("append").Call(
 				Id("response").Dot(accessor),
 				Id("res").Dot(accessor).Op("..."),
 			)
@@ -354,7 +362,7 @@ func (s *Service) getAllServiceFunc(action Action, endpoint string, field Field)
 	//	}
 	funcBody.Add(
 		Id("p").Op(":=").Qual(qualifier("paging"), "PagingParams").Values(Dict{
-			Id("P"): Lit(1),
+			Id("P"):  Lit(1),
 			Id("Ps"): Lit(100),
 		}),
 
@@ -367,7 +375,7 @@ func (s *Service) getAllServiceFunc(action Action, endpoint string, field Field)
 		//	if err != nil {
 		//		return nil, fmt.Errorf("error during <action id>All: %+v", err)
 		//	}
-		Id("res").Op(",").Err().Op(":=").Id("s").Dot(action.serviceFuncName()).Call(Id("r"),  Id("p")),
+		Id("res").Op(",").Err().Op(":=").Id("s").Dot(action.serviceFuncName()).Call(Id("r"), Id("p")),
 		ifError(action, fmt.Sprintf("error during call to %s.%s: %%+v", endpoint, action.serviceFuncName())),
 	)
 
@@ -389,7 +397,7 @@ func (s *Service) getAllServiceFunc(action Action, endpoint string, field Field)
 
 	//	for {
 	funcBody.Add(
-			For(nil).Block(*loopBody...))
+		For(nil).Block(*loopBody...))
 	//	}
 
 	funcBody.Add(

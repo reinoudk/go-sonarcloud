@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"reflect"
-	"strconv"
 	"time"
 )
 
@@ -80,30 +79,29 @@ func (a *Action) hasPaging() bool {
 
 	for _, param := range a.Params {
 		switch param.Key {
-		case "p": hasP = true
-		case "ps": hasPs = true
+		case "p":
+			hasP = true
+		case "ps":
+			hasPs = true
 		}
 	}
 
 	return hasP && hasPs
 }
 
-func (a *Action) responseField(example map[string]interface{}) (Field, error) {
-	overrides := make(map[string]Field)
-	if a.hasPaging() {
-		overrides["paging"] = NewStatementField("paging", Qual(qualifier("paging"), "Paging"))
-	}
-
-	// TODO: overrides should be defined globally and not just by action key, but by service path as well.
-	if a.Key == "generate" {
-		// The token example is "1234567", which we 'falsely' interpret as an integer. Real tokens have letters...
-		overrides["token"] = &StringField{name: "Token"}
-	}
-
-	return NewMapField(a.responseTypeName(), example, overrides), nil
+type ResponseFieldsGenerator struct {
+	parser *FieldParser
 }
 
-func (a *Action) responseFieldWithoutPaging(example map[string]interface{}) (Field, error) {
+func NewResponseFieldsGenerator(parser *FieldParser) *ResponseFieldsGenerator {
+	return &ResponseFieldsGenerator{parser: parser}
+}
+
+func (g *ResponseFieldsGenerator) generate(responseTypeName string, example map[string]interface{}) (Field, error) {
+	return g.parser.NewMapField(responseTypeName, example), nil
+}
+
+func (g *ResponseFieldsGenerator) generatedWithoutPaging(responseAllTypeName string, example map[string]interface{}) (Field, error) {
 	delete(example, "paging")
 
 	// Remove flattened paging as well
@@ -111,12 +109,21 @@ func (a *Action) responseFieldWithoutPaging(example map[string]interface{}) (Fie
 	delete(example, "ps")
 	delete(example, "total")
 
-	return NewMapField(a.responseAllTypeName(), example, nil), nil
+	return g.parser.NewMapField(responseAllTypeName, example), nil
 }
 
-func (a *Action) requestStruct() *Statement {
-	fields := make([]Code, len(a.Params))
-	for i, param := range a.Params {
+type RequestStructGenerator struct {
+	service *Service
+	action  *Action
+}
+
+func NewRequestStructGenerator(service *Service, action *Action) *RequestStructGenerator {
+	return &RequestStructGenerator{service: service, action: action}
+}
+
+func (g *RequestStructGenerator) generate() *Statement {
+	fields := make([]Code, len(g.action.Params))
+	for i, param := range g.action.Params {
 		// filter out unwanted fields and paging parameters
 		if contains(param.Key, append(skippedRequestFields, "p", "ps")) {
 			continue
@@ -125,14 +132,14 @@ func (a *Action) requestStruct() *Statement {
 		fields[i] = param.render()
 	}
 
-	statement := Commentf("%s %s", a.requestTypeName(), a.Description)
-	if a.DeprecatedSince != "" {
+	statement := Commentf("%s %s", g.action.requestTypeName(), g.action.Description)
+	if g.action.DeprecatedSince != "" {
 		statement.Line()
-		statement.Commentf("Deprecated: this action has been deprecated since version %s", a.DeprecatedSince)
+		statement.Commentf("Deprecated: this action has been deprecated since version %s", g.action.DeprecatedSince)
 	}
 	statement.Line()
 
-	statement.Type().Id(a.requestTypeName()).Struct(fields...)
+	statement.Type().Id(g.action.requestTypeName()).Struct(fields...)
 
 	return statement
 }
@@ -163,8 +170,8 @@ func (a *Action) responseStructPagingFunc(collection Field) *Statement {
 			statement.Block(Return(
 				Op("&").Qual(qualifier("paging"), "Paging").Block(Dict{
 					Id("PageIndex"): Int().Parens(Id("r").Dot("P")),
-					Id("PageSize"): Int().Parens(Id("r").Dot("Ps")),
-					Id("Total"): Int().Parens(Id("r").Dot("Total")),
+					Id("PageSize"):  Int().Parens(Id("r").Dot("Ps")),
+					Id("Total"):     Int().Parens(Id("r").Dot("Total")),
 				}),
 			))
 		}
@@ -228,28 +235,4 @@ func (a *Action) fetchExample(endpoint string) (map[string]interface{}, error) {
 	} else {
 		return nil, fmt.Errorf("unsupported response format %s", responseExample.Format)
 	}
-}
-
-func parseField(name string, value interface{}, overrides map[string]Field) Field {
-	if override, ok := overrides[name]; ok {
-		return override
-	}
-	switch value.(type) {
-	case string:
-		// Numbers are represented as strings in the examples, while being floats in the real world responses...
-		if _, err := strconv.ParseFloat(value.(string), 64); err == nil {
-			return &FloatField{name: name}
-		} else {
-			return &StringField{name: name}
-		}
-	case float64:
-		return &FloatField{name: name}
-	case bool:
-		return &BoolField{name: name}
-	case map[string]interface{}:
-		return NewMapField(name, value.(map[string]interface{}), overrides)
-	case []interface{}:
-		return NewSliceField(name, value.([]interface{}))
-	}
-	return &EmptyField{}
 }

@@ -5,6 +5,41 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
+type FieldParser struct {
+	service   *Service
+	action    *Action
+	overrides map[string]Field
+}
+
+func NewFieldParser(service *Service, action *Action, overrides map[string]Field) *FieldParser {
+	parser := &FieldParser{service: service, action: action, overrides: overrides}
+
+	if action.hasPaging() {
+		parser.overrides["paging"] = NewStatementField("paging", Qual(qualifier("paging"), "Paging"))
+	}
+
+	return parser
+}
+
+func (p FieldParser) parse(name string, value interface{}) Field {
+	if override, ok := p.overrides[name]; ok {
+		return override
+	}
+	switch value.(type) {
+	case string:
+		return &StringField{name: name}
+	case float64:
+		return &FloatField{name: name}
+	case bool:
+		return &BoolField{name: name}
+	case map[string]interface{}:
+		return p.NewMapField(name, value.(map[string]interface{}))
+	case []interface{}:
+		return p.NewSliceField(name, value.([]interface{}))
+	}
+	return &EmptyField{}
+}
+
 type Field interface {
 	Name() string
 	Render(tags bool) *Statement
@@ -70,13 +105,13 @@ type MapField struct {
 	overrides map[string]*Statement
 }
 
-func NewMapField(name string, values map[string]interface{}, overrides map[string]Field) *MapField {
+func (p *FieldParser) NewMapField(name string, values map[string]interface{}) *MapField {
 	fields := make([]Field, len(values))
 	keys := sortedKeys(values)
 
 	for i, k := range keys {
 		v := values[k]
-		field := parseField(k, v, overrides)
+		field := p.parse(k, v)
 
 		fields[i] = field
 	}
@@ -116,13 +151,13 @@ type SliceField struct {
 	elem Field
 }
 
-func NewSliceField(name string, values []interface{}) *SliceField {
+func (p *FieldParser) NewSliceField(name string, values []interface{}) *SliceField {
 	var elem Field
 
 	if len(values) > 0 {
 		// Only look at the first element of the array to determine its type and render it without identifier
 		value := values[0]
-		elem = parseField("", value, map[string]Field{})
+		elem = p.parse("", value)
 
 	} else {
 		// Assume []string

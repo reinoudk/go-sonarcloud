@@ -13,7 +13,7 @@ type GenerateResponse struct {
 	CreatedAt string `json:"createdAt,omitempty"`
 	Login     string `json:"login,omitempty"`
 	Name      string `json:"name,omitempty"`
-	Token     string `json:"Token,omitempty"`
+	Token     string `json:"token,omitempty"`
 }
 
 // RevokeRequest Revoke a user access token. <br/>It requires administration permissions to specify a 'login' and revoke a token for another user. Otherwise, the token for the current user is revoked.
