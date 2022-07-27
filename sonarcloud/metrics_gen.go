@@ -41,7 +41,7 @@ func (s *Metrics) Domains(r metrics.DomainsRequest) (*metrics.DomainsResponse, e
 	return response, nil
 }
 
-func (s *Metrics) Search(r metrics.SearchRequest, p paging.PagingParams) (*metrics.SearchResponse, error) {
+func (s *Metrics) Search(r metrics.SearchRequest, p paging.Params) (*metrics.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/metrics/search", API), params...)
@@ -72,7 +72,7 @@ func (s *Metrics) Search(r metrics.SearchRequest, p paging.PagingParams) (*metri
 }
 
 func (s *Metrics) SearchAll(r metrics.SearchRequest) (*metrics.SearchResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

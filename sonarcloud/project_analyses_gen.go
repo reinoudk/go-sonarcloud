@@ -105,7 +105,7 @@ func (s *ProjectAnalyses) DeleteEvent(r project_analyses.DeleteEventRequest) err
 	return nil
 }
 
-func (s *ProjectAnalyses) Search(r project_analyses.SearchRequest, p paging.PagingParams) (*project_analyses.SearchResponse, error) {
+func (s *ProjectAnalyses) Search(r project_analyses.SearchRequest, p paging.Params) (*project_analyses.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/project_analyses/search", API), params...)
@@ -136,7 +136,7 @@ func (s *ProjectAnalyses) Search(r project_analyses.SearchRequest, p paging.Pagi
 }
 
 func (s *ProjectAnalyses) SearchAll(r project_analyses.SearchRequest) (*project_analyses.SearchResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

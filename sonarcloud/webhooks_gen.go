@@ -76,7 +76,7 @@ func (s *Webhooks) Delete(r webhooks.DeleteRequest) error {
 	return nil
 }
 
-func (s *Webhooks) Deliveries(r webhooks.DeliveriesRequest, p paging.PagingParams) (*webhooks.DeliveriesResponse, error) {
+func (s *Webhooks) Deliveries(r webhooks.DeliveriesRequest, p paging.Params) (*webhooks.DeliveriesResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/webhooks/deliveries", API), params...)
@@ -107,7 +107,7 @@ func (s *Webhooks) Deliveries(r webhooks.DeliveriesRequest, p paging.PagingParam
 }
 
 func (s *Webhooks) DeliveriesAll(r webhooks.DeliveriesRequest) (*webhooks.DeliveriesResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

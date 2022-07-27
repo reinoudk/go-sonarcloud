@@ -454,7 +454,7 @@ func (s *Permissions) SearchGlobalPermissions(r permissions.SearchGlobalPermissi
 	return response, nil
 }
 
-func (s *Permissions) SearchProjectPermissions(r permissions.SearchProjectPermissionsRequest, p paging.PagingParams) (*permissions.SearchProjectPermissionsResponse, error) {
+func (s *Permissions) SearchProjectPermissions(r permissions.SearchProjectPermissionsRequest, p paging.Params) (*permissions.SearchProjectPermissionsResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/permissions/search_project_permissions", API), params...)
@@ -485,7 +485,7 @@ func (s *Permissions) SearchProjectPermissions(r permissions.SearchProjectPermis
 }
 
 func (s *Permissions) SearchProjectPermissionsAll(r permissions.SearchProjectPermissionsRequest) (*permissions.SearchProjectPermissionsResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

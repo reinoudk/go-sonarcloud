@@ -277,7 +277,7 @@ func (s *Issues) EditComment(r issues.EditCommentRequest) (*issues.EditCommentRe
 	return response, nil
 }
 
-func (s *Issues) Search(r issues.SearchRequest, p paging.PagingParams) (*issues.SearchResponse, error) {
+func (s *Issues) Search(r issues.SearchRequest, p paging.Params) (*issues.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/issues/search", API), params...)
@@ -308,7 +308,7 @@ func (s *Issues) Search(r issues.SearchRequest, p paging.PagingParams) (*issues.
 }
 
 func (s *Issues) SearchAll(r issues.SearchRequest) (*issues.SearchResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

@@ -1,9 +1,9 @@
 package paging
 
-// PagingParams are the params used for paging the request
-type PagingParams struct {
-	P        int  // 1-based page number
-	Ps       int  // Page size. Must be greater than 0 and less or equal than 500
+// Params are the params used for paging the request
+type Params struct {
+	P  int // 1-based page number
+	Ps int // Page size. Must be greater than 0 and less or equal than 500
 }
 
 // Paging is the part of the response that contains paging info
@@ -15,5 +15,5 @@ type Paging struct {
 
 // End returns whether the last page has been reached or not
 func (p *Paging) End() bool {
-	return p.PageIndex >= p.Total / p.PageSize
+	return p.PageIndex >= p.Total/p.PageSize
 }

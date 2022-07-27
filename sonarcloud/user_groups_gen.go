@@ -134,7 +134,7 @@ func (s *UserGroups) RemoveUser(r user_groups.RemoveUserRequest) error {
 	return nil
 }
 
-func (s *UserGroups) Search(r user_groups.SearchRequest, p paging.PagingParams) (*user_groups.SearchResponse, error) {
+func (s *UserGroups) Search(r user_groups.SearchRequest, p paging.Params) (*user_groups.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/user_groups/search", API), params...)
@@ -165,7 +165,7 @@ func (s *UserGroups) Search(r user_groups.SearchRequest, p paging.PagingParams) 
 }
 
 func (s *UserGroups) SearchAll(r user_groups.SearchRequest) (*user_groups.SearchResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}
@@ -214,7 +214,7 @@ func (s *UserGroups) Update(r user_groups.UpdateRequest) error {
 	return nil
 }
 
-func (s *UserGroups) Users(r user_groups.UsersRequest, p paging.PagingParams) (*user_groups.UsersResponse, error) {
+func (s *UserGroups) Users(r user_groups.UsersRequest, p paging.Params) (*user_groups.UsersResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/user_groups/users", API), params...)
@@ -245,7 +245,7 @@ func (s *UserGroups) Users(r user_groups.UsersRequest, p paging.PagingParams) (*
 }
 
 func (s *UserGroups) UsersAll(r user_groups.UsersRequest) (*user_groups.UsersResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

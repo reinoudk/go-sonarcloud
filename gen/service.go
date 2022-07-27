@@ -240,7 +240,7 @@ func (s *Service) getServiceFunc(action Action, endpoint string) *Statement {
 	statement := Func().Parens(Id("s").Op("*").Id(s.id())).Id(action.serviceFuncName())
 	statement.Params(
 		Id("r").Qual(qualifier(endpoint), action.requestTypeName()),
-		ifTrueGen(action.hasPaging(), Id("p").Qual(qualifier("paging"), "PagingParams")),
+		ifTrueGen(action.hasPaging(), Id("p").Qual(qualifier("paging"), "Params")),
 	)
 
 	// add return type based on whether we expect a response
@@ -360,12 +360,12 @@ func (s *Service) getAllServiceFunc(action Action, endpoint string, field Field)
 	// function body
 	funcBody := &Statement{}
 
-	//	p := paging.PagingParams{
+	//	p := paging.Params{
 	//		P:  1,
 	//		Ps: 100,
 	//	}
 	funcBody.Add(
-		Id("p").Op(":=").Qual(qualifier("paging"), "PagingParams").Values(Dict{
+		Id("p").Op(":=").Qual(qualifier("paging"), "Params").Values(Dict{
 			Id("P"):  Lit(1),
 			Id("Ps"): Lit(100),
 		}),

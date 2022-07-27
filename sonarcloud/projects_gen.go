@@ -139,7 +139,7 @@ func (s *Projects) Delete(r projects.DeleteRequest) error {
 	return nil
 }
 
-func (s *Projects) Search(r projects.SearchRequest, p paging.PagingParams) (*projects.SearchResponse, error) {
+func (s *Projects) Search(r projects.SearchRequest, p paging.Params) (*projects.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/projects/search", API), params...)
@@ -170,7 +170,7 @@ func (s *Projects) Search(r projects.SearchRequest, p paging.PagingParams) (*pro
 }
 
 func (s *Projects) SearchAll(r projects.SearchRequest) (*projects.SearchResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

@@ -11,7 +11,7 @@ import (
 
 type Components service
 
-func (s *Components) Search(r components.SearchRequest, p paging.PagingParams) (*components.SearchResponse, error) {
+func (s *Components) Search(r components.SearchRequest, p paging.Params) (*components.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/components/search", API), params...)
@@ -42,7 +42,7 @@ func (s *Components) Search(r components.SearchRequest, p paging.PagingParams) (
 }
 
 func (s *Components) SearchAll(r components.SearchRequest) (*components.SearchResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}
@@ -92,7 +92,7 @@ func (s *Components) Show(r components.ShowRequest) (*components.ShowResponse, e
 	return response, nil
 }
 
-func (s *Components) Tree(r components.TreeRequest, p paging.PagingParams) (*components.TreeResponse, error) {
+func (s *Components) Tree(r components.TreeRequest, p paging.Params) (*components.TreeResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/components/tree", API), params...)
@@ -123,7 +123,7 @@ func (s *Components) Tree(r components.TreeRequest, p paging.PagingParams) (*com
 }
 
 func (s *Components) TreeAll(r components.TreeRequest) (*components.TreeResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

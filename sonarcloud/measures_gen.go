@@ -41,7 +41,7 @@ func (s *Measures) Component(r measures.ComponentRequest) (*measures.ComponentRe
 	return response, nil
 }
 
-func (s *Measures) ComponentTree(r measures.ComponentTreeRequest, p paging.PagingParams) (*measures.ComponentTreeResponse, error) {
+func (s *Measures) ComponentTree(r measures.ComponentTreeRequest, p paging.Params) (*measures.ComponentTreeResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/measures/component_tree", API), params...)
@@ -72,7 +72,7 @@ func (s *Measures) ComponentTree(r measures.ComponentTreeRequest, p paging.Pagin
 }
 
 func (s *Measures) ComponentTreeAll(r measures.ComponentTreeRequest) (*measures.ComponentTreeResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}
@@ -94,7 +94,7 @@ func (s *Measures) ComponentTreeAll(r measures.ComponentTreeRequest) (*measures.
 	return response, nil
 }
 
-func (s *Measures) SearchHistory(r measures.SearchHistoryRequest, p paging.PagingParams) (*measures.SearchHistoryResponse, error) {
+func (s *Measures) SearchHistory(r measures.SearchHistoryRequest, p paging.Params) (*measures.SearchHistoryResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/measures/search_history", API), params...)
@@ -125,7 +125,7 @@ func (s *Measures) SearchHistory(r measures.SearchHistoryRequest, p paging.Pagin
 }
 
 func (s *Measures) SearchHistoryAll(r measures.SearchHistoryRequest) (*measures.SearchHistoryResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

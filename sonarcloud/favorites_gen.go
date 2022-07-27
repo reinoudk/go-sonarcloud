@@ -71,7 +71,7 @@ func (s *Favorites) Remove(r favorites.RemoveRequest) error {
 	return nil
 }
 
-func (s *Favorites) Search(r favorites.SearchRequest, p paging.PagingParams) (*favorites.SearchResponse, error) {
+func (s *Favorites) Search(r favorites.SearchRequest, p paging.Params) (*favorites.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/favorites/search", API), params...)
@@ -102,7 +102,7 @@ func (s *Favorites) Search(r favorites.SearchRequest, p paging.PagingParams) (*f
 }
 
 func (s *Favorites) SearchAll(r favorites.SearchRequest) (*favorites.SearchResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

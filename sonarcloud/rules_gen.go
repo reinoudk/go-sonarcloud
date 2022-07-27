@@ -43,7 +43,7 @@ func (s *Rules) Repositories(r rules.RepositoriesRequest) (*rules.RepositoriesRe
 	return response, nil
 }
 
-func (s *Rules) Search(r rules.SearchRequest, p paging.PagingParams) (*rules.SearchResponse, error) {
+func (s *Rules) Search(r rules.SearchRequest, p paging.Params) (*rules.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/rules/search", API), params...)
@@ -74,7 +74,7 @@ func (s *Rules) Search(r rules.SearchRequest, p paging.PagingParams) (*rules.Sea
 }
 
 func (s *Rules) SearchAll(r rules.SearchRequest) (*rules.SearchResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}

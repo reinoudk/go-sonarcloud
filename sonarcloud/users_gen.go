@@ -11,7 +11,7 @@ import (
 
 type Users service
 
-func (s *Users) Groups(r users.GroupsRequest, p paging.PagingParams) (*users.GroupsResponse, error) {
+func (s *Users) Groups(r users.GroupsRequest, p paging.Params) (*users.GroupsResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/users/groups", API), params...)
@@ -42,7 +42,7 @@ func (s *Users) Groups(r users.GroupsRequest, p paging.PagingParams) (*users.Gro
 }
 
 func (s *Users) GroupsAll(r users.GroupsRequest) (*users.GroupsResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}
@@ -62,7 +62,7 @@ func (s *Users) GroupsAll(r users.GroupsRequest) (*users.GroupsResponseAll, erro
 	return response, nil
 }
 
-func (s *Users) Search(r users.SearchRequest, p paging.PagingParams) (*users.SearchResponse, error) {
+func (s *Users) Search(r users.SearchRequest, p paging.Params) (*users.SearchResponse, error) {
 	params := paramsFrom(r, p)
 
 	req, err := s.client.GetRequest(fmt.Sprintf("%s/users/search", API), params...)
@@ -93,7 +93,7 @@ func (s *Users) Search(r users.SearchRequest, p paging.PagingParams) (*users.Sea
 }
 
 func (s *Users) SearchAll(r users.SearchRequest) (*users.SearchResponseAll, error) {
-	p := paging.PagingParams{
+	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}
