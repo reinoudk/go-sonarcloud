@@ -105,13 +105,13 @@ func (s *Service) process(output string) error {
 	dir := fmt.Sprintf("%s/%s", output, endpoint)
 	_ = os.Mkdir(dir, 0755)
 
-	typesFileName := fmt.Sprintf("%s/%s/%s.go", output, endpoint, endpoint)
+	typesFileName := fmt.Sprintf("%s/%s/%s_gen.go", output, endpoint, endpoint)
 	err := typesFile.Save(typesFileName)
 	if err != nil {
 		return fmt.Errorf("could not save generated source file for types: %+v\n", err)
 	}
 
-	serviceFileName := fmt.Sprintf("%s/%s.go", output, endpoint)
+	serviceFileName := fmt.Sprintf("%s/%s_gen.go", output, endpoint)
 	err = serviceFile.Save(serviceFileName)
 	if err != nil {
 		return fmt.Errorf("could not save generated source file for service: %+v\n", err)
