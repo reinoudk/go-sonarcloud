@@ -26,8 +26,11 @@ func (s *Metrics) Domains(r metrics.DomainsRequest) (*metrics.DomainsResponse, e
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &metrics.DomainsResponse{}
@@ -53,8 +56,11 @@ func (s *Metrics) Search(r metrics.SearchRequest, p paging.PagingParams) (*metri
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &metrics.SearchResponse{}
@@ -101,8 +107,11 @@ func (s *Metrics) Types(r metrics.TypesRequest) (*metrics.TypesResponse, error) 
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &metrics.TypesResponse{}

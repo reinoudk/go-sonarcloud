@@ -32,8 +32,11 @@ func (s *Favorites) Add(r favorites.AddRequest) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil
@@ -58,8 +61,11 @@ func (s *Favorites) Remove(r favorites.RemoveRequest) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil
@@ -80,8 +86,11 @@ func (s *Favorites) Search(r favorites.SearchRequest, p paging.PagingParams) (*f
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &favorites.SearchResponse{}

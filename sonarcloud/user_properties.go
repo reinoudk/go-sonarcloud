@@ -25,8 +25,11 @@ func (s *UserProperties) Index(r user_properties.IndexRequest) (*user_properties
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &user_properties.IndexResponse{}

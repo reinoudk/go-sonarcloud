@@ -32,8 +32,11 @@ func (s *Issues) AddComment(r issues.AddCommentRequest) (*issues.AddCommentRespo
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.AddCommentResponse{}
@@ -63,8 +66,11 @@ func (s *Issues) Assign(r issues.AssignRequest) (*issues.AssignResponse, error) 
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.AssignResponse{}
@@ -90,8 +96,11 @@ func (s *Issues) Authors(r issues.AuthorsRequest) (*issues.AuthorsResponse, erro
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.AuthorsResponse{}
@@ -121,8 +130,11 @@ func (s *Issues) BulkChange(r issues.BulkChangeRequest) (*issues.BulkChangeRespo
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.BulkChangeResponse{}
@@ -148,8 +160,11 @@ func (s *Issues) Changelog(r issues.ChangelogRequest) (*issues.ChangelogResponse
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.ChangelogResponse{}
@@ -179,8 +194,11 @@ func (s *Issues) DeleteComment(r issues.DeleteCommentRequest) (*issues.DeleteCom
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.DeleteCommentResponse{}
@@ -210,8 +228,11 @@ func (s *Issues) DoTransition(r issues.DoTransitionRequest) (*issues.DoTransitio
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.DoTransitionResponse{}
@@ -241,8 +262,11 @@ func (s *Issues) EditComment(r issues.EditCommentRequest) (*issues.EditCommentRe
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.EditCommentResponse{}
@@ -268,8 +292,11 @@ func (s *Issues) Search(r issues.SearchRequest, p paging.PagingParams) (*issues.
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.SearchResponse{}
@@ -323,8 +350,11 @@ func (s *Issues) SetSeverity(r issues.SetSeverityRequest) (*issues.SetSeverityRe
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.SetSeverityResponse{}
@@ -354,8 +384,11 @@ func (s *Issues) SetTags(r issues.SetTagsRequest) (*issues.SetTagsResponse, erro
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.SetTagsResponse{}
@@ -385,8 +418,11 @@ func (s *Issues) SetType(r issues.SetTypeRequest) (*issues.SetTypeResponse, erro
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.SetTypeResponse{}
@@ -412,8 +448,11 @@ func (s *Issues) Tags(r issues.TagsRequest) (*issues.TagsResponse, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &issues.TagsResponse{}

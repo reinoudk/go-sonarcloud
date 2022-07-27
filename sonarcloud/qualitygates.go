@@ -31,8 +31,11 @@ func (s *Qualitygates) Copy(r qualitygates.CopyRequest) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil
@@ -57,8 +60,11 @@ func (s *Qualitygates) Create(r qualitygates.CreateRequest) (*qualitygates.Creat
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &qualitygates.CreateResponse{}
@@ -88,8 +94,11 @@ func (s *Qualitygates) CreateCondition(r qualitygates.CreateConditionRequest) (*
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &qualitygates.CreateConditionResponse{}
@@ -119,8 +128,11 @@ func (s *Qualitygates) DeleteCondition(r qualitygates.DeleteConditionRequest) er
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil
@@ -145,8 +157,11 @@ func (s *Qualitygates) Deselect(r qualitygates.DeselectRequest) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil
@@ -171,8 +186,11 @@ func (s *Qualitygates) Destroy(r qualitygates.DestroyRequest) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil
@@ -193,8 +211,11 @@ func (s *Qualitygates) GetByProject(r qualitygates.GetByProjectRequest) (*qualit
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &qualitygates.GetByProjectResponse{}
@@ -220,8 +241,11 @@ func (s *Qualitygates) List(r qualitygates.ListRequest) (*qualitygates.ListRespo
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &qualitygates.ListResponse{}
@@ -247,8 +271,11 @@ func (s *Qualitygates) ProjectStatus(r qualitygates.ProjectStatusRequest) (*qual
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &qualitygates.ProjectStatusResponse{}
@@ -278,8 +305,11 @@ func (s *Qualitygates) Rename(r qualitygates.RenameRequest) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil
@@ -300,8 +330,11 @@ func (s *Qualitygates) Search(r qualitygates.SearchRequest) (*qualitygates.Searc
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &qualitygates.SearchResponse{}
@@ -331,8 +364,11 @@ func (s *Qualitygates) Select(r qualitygates.SelectRequest) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil
@@ -357,8 +393,11 @@ func (s *Qualitygates) SetAsDefault(r qualitygates.SetAsDefaultRequest) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil
@@ -379,8 +418,11 @@ func (s *Qualitygates) Show(r qualitygates.ShowRequest) (*qualitygates.ShowRespo
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &qualitygates.ShowResponse{}
@@ -410,8 +452,11 @@ func (s *Qualitygates) UnsetDefault(r qualitygates.UnsetDefaultRequest) (*qualit
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return nil, fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return nil, fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return nil, errorResponse
+		}
 	}
 
 	response := &qualitygates.UnsetDefaultResponse{}
@@ -441,8 +486,11 @@ func (s *Qualitygates) UpdateCondition(r qualitygates.UpdateConditionRequest) er
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 300 {
-		// TODO: parse error message
-		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
+		if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+			return fmt.Errorf("received non 2xx status code (%d), but could not decode error response: %+v", resp.StatusCode, err)
+		} else {
+			return errorResponse
+		}
 	}
 
 	return nil

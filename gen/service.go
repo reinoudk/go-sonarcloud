@@ -169,20 +169,7 @@ func (s *Service) postServiceFunc(action Action, endpoint string) *Statement {
 		Defer().Id("resp").Dot("Body").Dot("Close").Call(),
 		Line(),
 
-		// if resp.StatusCode >= 300 {
-		//		// TODO: parse error message
-		//		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
-		//	}
-		If().Id("resp").Dot("StatusCode").Op(">=").Lit(300).Block(
-			Comment("TODO: parse error message"),
-			errResult(
-				action,
-				Qual("fmt", "Errorf").Call(
-					Lit("received non 2xx status code: %d"),
-					Id("resp").Dot("StatusCode"),
-				),
-			),
-		),
+		nonHTTP2xxErrorHandling(action),
 		Line(),
 
 		ifTrueGen(
@@ -215,6 +202,36 @@ func (s *Service) postServiceFunc(action Action, endpoint string) *Statement {
 	statement.Line()
 
 	return statement
+}
+
+// Outputs:
+//
+// if resp.StatusCode >= 300 {
+// 	if errorResponse, err := ErrorResponseFrom(resp); err != nil {
+// 		return nil, fmt.Errorf("could not decode error response: %+v", err)
+// 	} else {
+// 		return nil, errorResponse
+// 	}
+// }
+func nonHTTP2xxErrorHandling(action Action) *Statement {
+	return If().Id("resp").Dot("StatusCode").Op(">=").Lit(300).Block(
+		If().Id("errorResponse").Op(",").Id("err").Op(":=").Qual("", "ErrorResponseFrom").Call(
+			Id("resp")).Op(";").Id("err").Op("!=").Nil().Block(
+			errResult(
+				action,
+				Qual("fmt", "Errorf").Call(
+					Lit("received non 2xx status code (%d), but could not decode error response: %+v"),
+					Id("resp").Dot("StatusCode"),
+					Id("err"),
+				),
+			),
+		).Else().Block(
+			errResult(
+				action,
+				Id("errorResponse"),
+			),
+		),
+	)
 }
 
 func (s *Service) getServiceFunc(action Action, endpoint string) *Statement {
@@ -268,20 +285,7 @@ func (s *Service) getServiceFunc(action Action, endpoint string) *Statement {
 		Defer().Id("resp").Dot("Body").Dot("Close").Call(),
 		Line(),
 
-		// if resp.StatusCode >= 300 {
-		//		// TODO: parse error message
-		//		return fmt.Errorf("received non 2xx status code: %d", resp.StatusCode)
-		//	}
-		If().Id("resp").Dot("StatusCode").Op(">=").Lit(300).Block(
-			Comment("TODO: parse error message"),
-			errResult(
-				action,
-				Qual("fmt", "Errorf").Call(
-					Lit("received non 2xx status code: %d"),
-					Id("resp").Dot("StatusCode"),
-				),
-			),
-		),
+		nonHTTP2xxErrorHandling(action),
 		Line(),
 
 		ifTrueGen(
