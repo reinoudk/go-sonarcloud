@@ -171,7 +171,7 @@ func paramsFrom(items ...interface{}) []string {
 				fieldValue = strconv.FormatBool(v.Field(i).Interface().(bool))
 			}
 
-			params[j] = strcase.ToCamel(t.Field(i).Name)
+			params[j] = strcase.ToLowerCamel(t.Field(i).Name)
 			params[k] = fieldValue
 		}
 
