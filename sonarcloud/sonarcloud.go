@@ -8,11 +8,12 @@ package sonarcloud
 
 import (
 	"fmt"
-	"github.com/iancoleman/strcase"
 	"io"
 	"net/http"
 	"reflect"
 	"strconv"
+
+	"github.com/iancoleman/strcase"
 )
 
 // API FIXME: this should be injected
@@ -170,7 +171,7 @@ func paramsFrom(items ...interface{}) []string {
 				fieldValue = strconv.FormatBool(v.Field(i).Interface().(bool))
 			}
 
-			params[j] = strcase.ToSnake(t.Field(i).Name)
+			params[j] = strcase.ToCamel(t.Field(i).Name)
 			params[k] = fieldValue
 		}
 
