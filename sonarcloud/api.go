@@ -9,7 +9,7 @@ import (
 )
 
 // Get returns the items that are found under the given items-key of the returned JSON object of the given page.
-func Get[T any, R any](client *Client, path string, request T, itemsKey string, pagingParams paging.Params) ([]R, *paging.Paging, error) {
+func Get[T any, R any, RR ~[]R](client *Client, path string, request T, itemsKey string, pagingParams paging.Params) (RR, *paging.Paging, error) {
 	params := paramsFrom(request, pagingParams)
 
 	req, err := client.GetRequest(API+path, params...)
@@ -46,24 +46,24 @@ func Get[T any, R any](client *Client, path string, request T, itemsKey string, 
 		return nil, nil, fmt.Errorf("could not unmarshall paging: %+v", err)
 	}
 
-	return items, &pager, nil
+	return RR(items), &pager, nil
 }
 
 // GetAll returns the items from all pages of a particular endpoint.
 // The itemsKey should be the key under which the array of items is found in each individual response from the endpoint.
-func GetAll[T any, R any](client *Client, path string, request T, itemsKey string) ([]R, error) {
+func GetAll[T any, R any, RR ~[]R](client *Client, path string, request T, itemsKey string) (RR, error) {
 	p := paging.Params{
 		P:  1,
 		Ps: 100,
 	}
 	allItems := make([]R, 0)
 	for {
-		items, pager, err := Get[T, R](client, path, request, itemsKey, p)
+		items, pager, err := Get[T, R, RR](client, path, request, itemsKey, p)
 		if err != nil {
 			return nil, fmt.Errorf("error during call to %s: , %+v", path, err)
 		}
 
-		allItems = append(allItems, items...)
+		allItems = append(allItems, []R(items)...)
 
 		if pager.End() {
 			break
@@ -71,7 +71,7 @@ func GetAll[T any, R any](client *Client, path string, request T, itemsKey strin
 			p.P++
 		}
 	}
-	return allItems, nil
+	return RR(allItems), nil
 }
 
 // Post sends a POST request without returning a response.
