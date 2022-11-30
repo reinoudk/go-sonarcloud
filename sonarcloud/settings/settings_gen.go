@@ -49,8 +49,13 @@ type ValuesRequest struct {
 // ValuesResponse is the response for ValuesRequest
 type ValuesResponse struct {
 	Settings []struct {
-		Inherited bool   `json:"inherited,omitempty"`
-		Key       string `json:"key,omitempty"`
-		Value     string `json:"value,omitempty"`
+		Inherited   bool     `json:"inherited,omitempty"`
+		Key         string   `json:"key,omitempty"`
+		Value       string   `json:"value,omitempty"`
+		Values      []string `json:"values,omitempty"`
+		FieldValues []struct {
+			Boolean string `json:"boolean,omitempty"`
+			Text    string `json:"text,omitempty"`
+		} `json:"fieldValues,omitempty"`
 	} `json:"settings,omitempty"`
 }

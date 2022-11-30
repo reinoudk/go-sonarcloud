@@ -19,10 +19,19 @@ type ListResponse struct {
 			Internal           bool   `json:"internal,omitempty"`
 			Key                string `json:"key,omitempty"`
 			Params             []struct {
-				Internal     bool    `json:"internal,omitempty"`
-				Key          string  `json:"key,omitempty"`
-				MaximumValue float64 `json:"maximumValue,omitempty"`
-				Required     bool    `json:"required,omitempty"`
+				Internal           bool     `json:"internal,omitempty"`
+				Key                string   `json:"key,omitempty"`
+				MaximumValue       float64  `json:"maximumValue,omitempty"`
+				Required           bool     `json:"required,omitempty"`
+				MaximumLength      float64  `json:"maximumLength,omitempty"`
+				MinimumLength      float64  `json:"minimumLength,omitempty"`
+				DefaultValue       string   `json:"defaultValue,omitempty"`
+				DeprecatedKey      string   `json:"deprecatedKey,omitempty"`
+				DeprecatedKeySince string   `json:"deprecatedKeySince,omitempty"`
+				DeprecatedSince    string   `json:"deprecatedSince,omitempty"`
+				Description        string   `json:"description,omitempty"`
+				ExampleValue       string   `json:"exampleValue,omitempty"`
+				PossibleValues     []string `json:"possibleValues,omitempty"`
 			} `json:"params,omitempty"`
 			Post bool `json:"post,omitempty"`
 		} `json:"actions,omitempty"`

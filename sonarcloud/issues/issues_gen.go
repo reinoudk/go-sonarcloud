@@ -14,13 +14,14 @@ type AddCommentRequest struct {
 // AddCommentResponse is the response for AddCommentRequest
 type AddCommentResponse struct {
 	Components []struct {
-		Enabled   bool   `json:"enabled,omitempty"`
-		Key       string `json:"key,omitempty"`
-		LongName  string `json:"longName,omitempty"`
-		Name      string `json:"name,omitempty"`
-		Path      string `json:"path,omitempty"`
-		Qualifier string `json:"qualifier,omitempty"`
-		Uuid      string `json:"uuid,omitempty"`
+		Enabled   bool    `json:"enabled,omitempty"`
+		Key       string  `json:"key,omitempty"`
+		LongName  string  `json:"longName,omitempty"`
+		Name      string  `json:"name,omitempty"`
+		Path      string  `json:"path,omitempty"`
+		Qualifier string  `json:"qualifier,omitempty"`
+		Uuid      string  `json:"uuid,omitempty"`
+		Id        float64 `json:"id,omitempty"`
 	} `json:"components,omitempty"`
 	Issue struct {
 		Actions  []string `json:"actions,omitempty"`

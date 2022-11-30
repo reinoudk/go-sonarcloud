@@ -22,8 +22,13 @@ type ComponentResponse struct {
 		Key      string `json:"key,omitempty"`
 		Language string `json:"language,omitempty"`
 		Measures []struct {
-			Metric string `json:"metric,omitempty"`
-			Value  string `json:"value,omitempty"`
+			Metric  string `json:"metric,omitempty"`
+			Value   string `json:"value,omitempty"`
+			Periods []struct {
+				BestValue bool    `json:"bestValue,omitempty"`
+				Index     float64 `json:"index,omitempty"`
+				Value     string  `json:"value,omitempty"`
+			} `json:"periods,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
 		Path      string `json:"path,omitempty"`
@@ -78,6 +83,7 @@ type ComponentTreeResponse struct {
 				Index float64 `json:"index,omitempty"`
 				Value string  `json:"value,omitempty"`
 			} `json:"periods,omitempty"`
+			Value string `json:"value,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
 		Qualifier string `json:"qualifier,omitempty"`
@@ -91,6 +97,7 @@ type ComponentTreeResponse struct {
 				Index float64 `json:"index,omitempty"`
 				Value string  `json:"value,omitempty"`
 			} `json:"periods,omitempty"`
+			Value string `json:"value,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
 		Path      string `json:"path,omitempty"`
@@ -106,6 +113,7 @@ type ComponentTreeResponse struct {
 		Name                  string `json:"name,omitempty"`
 		Qualitative           bool   `json:"qualitative,omitempty"`
 		Type                  string `json:"type,omitempty"`
+		BestValue             string `json:"bestValue,omitempty"`
 	} `json:"metrics,omitempty"`
 	Paging  paging.Paging `json:"paging,omitempty"`
 	Periods []struct {
@@ -131,6 +139,7 @@ type ComponentTreeResponseAll struct {
 				Index float64 `json:"index,omitempty"`
 				Value string  `json:"value,omitempty"`
 			} `json:"periods,omitempty"`
+			Value string `json:"value,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
 		Qualifier string `json:"qualifier,omitempty"`
@@ -144,6 +153,7 @@ type ComponentTreeResponseAll struct {
 				Index float64 `json:"index,omitempty"`
 				Value string  `json:"value,omitempty"`
 			} `json:"periods,omitempty"`
+			Value string `json:"value,omitempty"`
 		} `json:"measures,omitempty"`
 		Name      string `json:"name,omitempty"`
 		Path      string `json:"path,omitempty"`
@@ -159,6 +169,7 @@ type ComponentTreeResponseAll struct {
 		Name                  string `json:"name,omitempty"`
 		Qualitative           bool   `json:"qualitative,omitempty"`
 		Type                  string `json:"type,omitempty"`
+		BestValue             string `json:"bestValue,omitempty"`
 	} `json:"metrics,omitempty"`
 	Periods []struct {
 		Date      string  `json:"date,omitempty"`

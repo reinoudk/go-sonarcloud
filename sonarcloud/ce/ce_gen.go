@@ -34,6 +34,8 @@ type ActivityResponse struct {
 		SubmittedAt        string  `json:"submittedAt,omitempty"`
 		SubmitterLogin     string  `json:"submitterLogin,omitempty"`
 		Type               string  `json:"type,omitempty"`
+		ErrorMessage       string  `json:"errorMessage,omitempty"`
+		TaskType           string  `json:"taskType,omitempty"`
 	} `json:"tasks,omitempty"`
 }
 

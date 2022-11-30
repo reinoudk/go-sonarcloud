@@ -59,6 +59,7 @@ type SearchResponse struct {
 		Login            string   `json:"login,omitempty"`
 		Name             string   `json:"name,omitempty"`
 		TokensCount      float64  `json:"tokensCount,omitempty"`
+		ScmAccounts      []string `json:"scmAccounts,omitempty"`
 	} `json:"users,omitempty"`
 }
 
@@ -80,5 +81,6 @@ type SearchResponseAll struct {
 		Login            string   `json:"login,omitempty"`
 		Name             string   `json:"name,omitempty"`
 		TokensCount      float64  `json:"tokensCount,omitempty"`
+		ScmAccounts      []string `json:"scmAccounts,omitempty"`
 	} `json:"users,omitempty"`
 }

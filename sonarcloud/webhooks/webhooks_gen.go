@@ -101,9 +101,10 @@ type ListRequest struct {
 // ListResponse is the response for ListRequest
 type ListResponse struct {
 	Webhooks []struct {
-		Key  string `json:"key,omitempty"`
-		Name string `json:"name,omitempty"`
-		Url  string `json:"url,omitempty"`
+		Key    string `json:"key,omitempty"`
+		Name   string `json:"name,omitempty"`
+		Url    string `json:"url,omitempty"`
+		Secret string `json:"secret,omitempty"`
 	} `json:"webhooks,omitempty"`
 }
 

@@ -23,8 +23,11 @@ type ListResponse struct {
 		Key                        string `json:"key,omitempty"`
 	} `json:"globalTypes,omitempty"`
 	Notifications []struct {
-		Channel string `json:"channel,omitempty"`
-		Type    string `json:"type,omitempty"`
+		Channel      string `json:"channel,omitempty"`
+		Type         string `json:"type,omitempty"`
+		Organization string `json:"organization,omitempty"`
+		Project      string `json:"project,omitempty"`
+		ProjectName  string `json:"projectName,omitempty"`
 	} `json:"notifications,omitempty"`
 	Organizations []struct {
 		IsMember bool   `json:"isMember,omitempty"`

@@ -48,13 +48,16 @@ type ShowRequest struct {
 // ShowResponse is the response for ShowRequest
 type ShowResponse struct {
 	Ancestors []struct {
-		AnalysisDate string `json:"analysisDate,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Name         string `json:"name,omitempty"`
-		Organization string `json:"organization,omitempty"`
-		Path         string `json:"path,omitempty"`
-		Qualifier    string `json:"qualifier,omitempty"`
-		Version      string `json:"version,omitempty"`
+		AnalysisDate string   `json:"analysisDate,omitempty"`
+		Key          string   `json:"key,omitempty"`
+		Name         string   `json:"name,omitempty"`
+		Organization string   `json:"organization,omitempty"`
+		Path         string   `json:"path,omitempty"`
+		Qualifier    string   `json:"qualifier,omitempty"`
+		Version      string   `json:"version,omitempty"`
+		Description  string   `json:"description,omitempty"`
+		Tags         []string `json:"tags,omitempty"`
+		Visibility   string   `json:"visibility,omitempty"`
 	} `json:"ancestors,omitempty"`
 	Component struct {
 		AnalysisDate   string `json:"analysisDate,omitempty"`

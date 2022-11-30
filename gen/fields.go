@@ -3,6 +3,7 @@ package main
 import (
 	. "github.com/dave/jennifer/jen"
 	"github.com/iancoleman/strcase"
+	"sync"
 )
 
 type FieldParser struct {
@@ -103,6 +104,7 @@ type MapField struct {
 	name      string
 	fields    []Field
 	overrides map[string]*Statement
+	mutex     sync.Mutex
 }
 
 func (p *FieldParser) NewMapField(name string, values map[string]interface{}) *MapField {
@@ -146,6 +148,24 @@ func (f *MapField) Accessors() []string {
 	return keys
 }
 
+// CombineWith adds the fields from other to this field if they do not exist yet
+func (f *MapField) CombineWith(other *MapField) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	existing := make(map[string]int, len(f.fields))
+
+	for i, field := range f.fields {
+		existing[field.Name()] = i
+	}
+
+	for _, field := range other.fields {
+		if _, ok := existing[field.Name()]; !ok {
+			f.fields = append(f.fields, field)
+		}
+	}
+}
+
 type SliceField struct {
 	name string
 	elem Field
@@ -155,10 +175,16 @@ func (p *FieldParser) NewSliceField(name string, values []interface{}) *SliceFie
 	var elem Field
 
 	if len(values) > 0 {
-		// Only look at the first element of the array to determine its type and render it without identifier
 		value := values[0]
 		elem = p.parse("", value)
 
+		// Some example arrays have multiple entries, with not every entry containing every field.
+		// If the first entry is an object (MapField), we collect all possibles object keys.
+		if v, ok := elem.(*MapField); ok && len(values) > 1 {
+			for _, other := range values[1:] {
+				v.CombineWith(p.parse("dummy", other).(*MapField))
+			}
+		}
 	} else {
 		// Assume []string
 		elem = &StringField{}

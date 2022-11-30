@@ -104,14 +104,18 @@ type SearchResponse struct {
 			Desc         string `json:"desc,omitempty"`
 			Key          string `json:"key,omitempty"`
 		} `json:"params,omitempty"`
-		Repo      string   `json:"repo,omitempty"`
-		Scope     string   `json:"scope,omitempty"`
-		Severity  string   `json:"severity,omitempty"`
-		Status    string   `json:"status,omitempty"`
-		SysTags   []string `json:"sysTags,omitempty"`
-		Tags      []string `json:"tags,omitempty"`
-		Type      string   `json:"type,omitempty"`
-		UpdatedAt string   `json:"updatedAt,omitempty"`
+		Repo        string   `json:"repo,omitempty"`
+		Scope       string   `json:"scope,omitempty"`
+		Severity    string   `json:"severity,omitempty"`
+		Status      string   `json:"status,omitempty"`
+		SysTags     []string `json:"sysTags,omitempty"`
+		Tags        []string `json:"tags,omitempty"`
+		Type        string   `json:"type,omitempty"`
+		UpdatedAt   string   `json:"updatedAt,omitempty"`
+		HtmlNote    string   `json:"htmlNote,omitempty"`
+		MdNote      string   `json:"mdNote,omitempty"`
+		NoteLogin   string   `json:"noteLogin,omitempty"`
+		TemplateKey string   `json:"templateKey,omitempty"`
 	} `json:"rules,omitempty"`
 	Total float64 `json:"total,omitempty"`
 }
@@ -179,14 +183,18 @@ type SearchResponseAll struct {
 			Desc         string `json:"desc,omitempty"`
 			Key          string `json:"key,omitempty"`
 		} `json:"params,omitempty"`
-		Repo      string   `json:"repo,omitempty"`
-		Scope     string   `json:"scope,omitempty"`
-		Severity  string   `json:"severity,omitempty"`
-		Status    string   `json:"status,omitempty"`
-		SysTags   []string `json:"sysTags,omitempty"`
-		Tags      []string `json:"tags,omitempty"`
-		Type      string   `json:"type,omitempty"`
-		UpdatedAt string   `json:"updatedAt,omitempty"`
+		Repo        string   `json:"repo,omitempty"`
+		Scope       string   `json:"scope,omitempty"`
+		Severity    string   `json:"severity,omitempty"`
+		Status      string   `json:"status,omitempty"`
+		SysTags     []string `json:"sysTags,omitempty"`
+		Tags        []string `json:"tags,omitempty"`
+		Type        string   `json:"type,omitempty"`
+		UpdatedAt   string   `json:"updatedAt,omitempty"`
+		HtmlNote    string   `json:"htmlNote,omitempty"`
+		MdNote      string   `json:"mdNote,omitempty"`
+		NoteLogin   string   `json:"noteLogin,omitempty"`
+		TemplateKey string   `json:"templateKey,omitempty"`
 	} `json:"rules,omitempty"`
 }
 
