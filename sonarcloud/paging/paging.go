@@ -15,5 +15,5 @@ type Paging struct {
 
 // End returns whether the last page has been reached or not
 func (p *Paging) End() bool {
-	return p.PageIndex >= p.Total/p.PageSize
+	return p.PageIndex * p.PageSize >= p.Total
 }
