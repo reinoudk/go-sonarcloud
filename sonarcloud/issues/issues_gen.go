@@ -24,10 +24,12 @@ type AddCommentResponse struct {
 		Id        float64 `json:"id,omitempty"`
 	} `json:"components,omitempty"`
 	Issue struct {
-		Actions  []string `json:"actions,omitempty"`
-		Assignee string   `json:"assignee,omitempty"`
-		Author   string   `json:"author,omitempty"`
-		Comments []struct {
+		Actions                    []string `json:"actions,omitempty"`
+		Assignee                   string   `json:"assignee,omitempty"`
+		Author                     string   `json:"author,omitempty"`
+		CleanCodeAttribute         string   `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string   `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -40,15 +42,20 @@ type AddCommentResponse struct {
 		Debt         string   `json:"debt,omitempty"`
 		Effort       string   `json:"effort,omitempty"`
 		Flows        []string `json:"flows,omitempty"`
-		Key          string   `json:"key,omitempty"`
-		Line         float64  `json:"line,omitempty"`
-		Message      string   `json:"message,omitempty"`
-		Project      string   `json:"project,omitempty"`
-		Rule         string   `json:"rule,omitempty"`
-		Severity     string   `json:"severity,omitempty"`
-		Status       string   `json:"status,omitempty"`
-		Tags         []string `json:"tags,omitempty"`
-		TextRange    struct {
+		Impacts      []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`
@@ -91,10 +98,12 @@ type AssignResponse struct {
 		Uuid      string `json:"uuid,omitempty"`
 	} `json:"components,omitempty"`
 	Issue struct {
-		Actions  []string `json:"actions,omitempty"`
-		Assignee string   `json:"assignee,omitempty"`
-		Author   string   `json:"author,omitempty"`
-		Comments []struct {
+		Actions                    []string `json:"actions,omitempty"`
+		Assignee                   string   `json:"assignee,omitempty"`
+		Author                     string   `json:"author,omitempty"`
+		CleanCodeAttribute         string   `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string   `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -107,15 +116,20 @@ type AssignResponse struct {
 		Debt         string   `json:"debt,omitempty"`
 		Effort       string   `json:"effort,omitempty"`
 		Flows        []string `json:"flows,omitempty"`
-		Key          string   `json:"key,omitempty"`
-		Line         float64  `json:"line,omitempty"`
-		Message      string   `json:"message,omitempty"`
-		Project      string   `json:"project,omitempty"`
-		Rule         string   `json:"rule,omitempty"`
-		Severity     string   `json:"severity,omitempty"`
-		Status       string   `json:"status,omitempty"`
-		Tags         []string `json:"tags,omitempty"`
-		TextRange    struct {
+		Impacts      []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`
@@ -211,10 +225,12 @@ type DeleteCommentResponse struct {
 		Uuid      string `json:"uuid,omitempty"`
 	} `json:"components,omitempty"`
 	Issue struct {
-		Actions  []string `json:"actions,omitempty"`
-		Assignee string   `json:"assignee,omitempty"`
-		Author   string   `json:"author,omitempty"`
-		Comments []struct {
+		Actions                    []string `json:"actions,omitempty"`
+		Assignee                   string   `json:"assignee,omitempty"`
+		Author                     string   `json:"author,omitempty"`
+		CleanCodeAttribute         string   `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string   `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -227,15 +243,20 @@ type DeleteCommentResponse struct {
 		Debt         string   `json:"debt,omitempty"`
 		Effort       string   `json:"effort,omitempty"`
 		Flows        []string `json:"flows,omitempty"`
-		Key          string   `json:"key,omitempty"`
-		Line         float64  `json:"line,omitempty"`
-		Message      string   `json:"message,omitempty"`
-		Project      string   `json:"project,omitempty"`
-		Rule         string   `json:"rule,omitempty"`
-		Severity     string   `json:"severity,omitempty"`
-		Status       string   `json:"status,omitempty"`
-		Tags         []string `json:"tags,omitempty"`
-		TextRange    struct {
+		Impacts      []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`
@@ -278,10 +299,12 @@ type DoTransitionResponse struct {
 		Uuid      string `json:"uuid,omitempty"`
 	} `json:"components,omitempty"`
 	Issue struct {
-		Actions  []string `json:"actions,omitempty"`
-		Assignee string   `json:"assignee,omitempty"`
-		Author   string   `json:"author,omitempty"`
-		Comments []struct {
+		Actions                    []string `json:"actions,omitempty"`
+		Assignee                   string   `json:"assignee,omitempty"`
+		Author                     string   `json:"author,omitempty"`
+		CleanCodeAttribute         string   `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string   `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -294,15 +317,20 @@ type DoTransitionResponse struct {
 		Debt         string   `json:"debt,omitempty"`
 		Effort       string   `json:"effort,omitempty"`
 		Flows        []string `json:"flows,omitempty"`
-		Key          string   `json:"key,omitempty"`
-		Line         float64  `json:"line,omitempty"`
-		Message      string   `json:"message,omitempty"`
-		Project      string   `json:"project,omitempty"`
-		Rule         string   `json:"rule,omitempty"`
-		Severity     string   `json:"severity,omitempty"`
-		Status       string   `json:"status,omitempty"`
-		Tags         []string `json:"tags,omitempty"`
-		TextRange    struct {
+		Impacts      []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`
@@ -345,10 +373,12 @@ type EditCommentResponse struct {
 		Uuid      string `json:"uuid,omitempty"`
 	} `json:"components,omitempty"`
 	Issue struct {
-		Actions  []string `json:"actions,omitempty"`
-		Assignee string   `json:"assignee,omitempty"`
-		Author   string   `json:"author,omitempty"`
-		Comments []struct {
+		Actions                    []string `json:"actions,omitempty"`
+		Assignee                   string   `json:"assignee,omitempty"`
+		Author                     string   `json:"author,omitempty"`
+		CleanCodeAttribute         string   `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string   `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -361,15 +391,20 @@ type EditCommentResponse struct {
 		Debt         string   `json:"debt,omitempty"`
 		Effort       string   `json:"effort,omitempty"`
 		Flows        []string `json:"flows,omitempty"`
-		Key          string   `json:"key,omitempty"`
-		Line         float64  `json:"line,omitempty"`
-		Message      string   `json:"message,omitempty"`
-		Project      string   `json:"project,omitempty"`
-		Rule         string   `json:"rule,omitempty"`
-		Severity     string   `json:"severity,omitempty"`
-		Status       string   `json:"status,omitempty"`
-		Tags         []string `json:"tags,omitempty"`
-		TextRange    struct {
+		Impacts      []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`
@@ -445,8 +480,10 @@ type SearchResponse struct {
 		Attr    struct {
 			JiraIssueKey string `json:"jira-issue-key,omitempty"`
 		} `json:"attr,omitempty"`
-		Author   string `json:"author,omitempty"`
-		Comments []struct {
+		Author                     string `json:"author,omitempty"`
+		CleanCodeAttribute         string `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -468,17 +505,22 @@ type SearchResponse struct {
 				} `json:"textRange,omitempty"`
 			} `json:"locations,omitempty"`
 		} `json:"flows,omitempty"`
-		Hash       string   `json:"hash,omitempty"`
-		Key        string   `json:"key,omitempty"`
-		Line       float64  `json:"line,omitempty"`
-		Message    string   `json:"message,omitempty"`
-		Project    string   `json:"project,omitempty"`
-		Resolution string   `json:"resolution,omitempty"`
-		Rule       string   `json:"rule,omitempty"`
-		Severity   string   `json:"severity,omitempty"`
-		Status     string   `json:"status,omitempty"`
-		Tags       []string `json:"tags,omitempty"`
-		TextRange  struct {
+		Hash    string `json:"hash,omitempty"`
+		Impacts []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Resolution                string   `json:"resolution,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`
@@ -524,8 +566,10 @@ type SearchResponseAll struct {
 		Attr    struct {
 			JiraIssueKey string `json:"jira-issue-key,omitempty"`
 		} `json:"attr,omitempty"`
-		Author   string `json:"author,omitempty"`
-		Comments []struct {
+		Author                     string `json:"author,omitempty"`
+		CleanCodeAttribute         string `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -547,17 +591,22 @@ type SearchResponseAll struct {
 				} `json:"textRange,omitempty"`
 			} `json:"locations,omitempty"`
 		} `json:"flows,omitempty"`
-		Hash       string   `json:"hash,omitempty"`
-		Key        string   `json:"key,omitempty"`
-		Line       float64  `json:"line,omitempty"`
-		Message    string   `json:"message,omitempty"`
-		Project    string   `json:"project,omitempty"`
-		Resolution string   `json:"resolution,omitempty"`
-		Rule       string   `json:"rule,omitempty"`
-		Severity   string   `json:"severity,omitempty"`
-		Status     string   `json:"status,omitempty"`
-		Tags       []string `json:"tags,omitempty"`
-		TextRange  struct {
+		Hash    string `json:"hash,omitempty"`
+		Impacts []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Resolution                string   `json:"resolution,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`
@@ -600,10 +649,12 @@ type SetSeverityResponse struct {
 		Uuid      string `json:"uuid,omitempty"`
 	} `json:"components,omitempty"`
 	Issue struct {
-		Actions  []string `json:"actions,omitempty"`
-		Assignee string   `json:"assignee,omitempty"`
-		Author   string   `json:"author,omitempty"`
-		Comments []struct {
+		Actions                    []string `json:"actions,omitempty"`
+		Assignee                   string   `json:"assignee,omitempty"`
+		Author                     string   `json:"author,omitempty"`
+		CleanCodeAttribute         string   `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string   `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -616,15 +667,20 @@ type SetSeverityResponse struct {
 		Debt         string   `json:"debt,omitempty"`
 		Effort       string   `json:"effort,omitempty"`
 		Flows        []string `json:"flows,omitempty"`
-		Key          string   `json:"key,omitempty"`
-		Line         float64  `json:"line,omitempty"`
-		Message      string   `json:"message,omitempty"`
-		Project      string   `json:"project,omitempty"`
-		Rule         string   `json:"rule,omitempty"`
-		Severity     string   `json:"severity,omitempty"`
-		Status       string   `json:"status,omitempty"`
-		Tags         []string `json:"tags,omitempty"`
-		TextRange    struct {
+		Impacts      []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`
@@ -669,10 +725,12 @@ type SetTagsResponse struct {
 		Uuid         string  `json:"uuid,omitempty"`
 	} `json:"components,omitempty"`
 	Issue struct {
-		Actions  []string `json:"actions,omitempty"`
-		Assignee string   `json:"assignee,omitempty"`
-		Author   string   `json:"author,omitempty"`
-		Comments []struct {
+		Actions                    []string `json:"actions,omitempty"`
+		Assignee                   string   `json:"assignee,omitempty"`
+		Author                     string   `json:"author,omitempty"`
+		CleanCodeAttribute         string   `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string   `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -685,15 +743,20 @@ type SetTagsResponse struct {
 		Debt         string   `json:"debt,omitempty"`
 		Effort       string   `json:"effort,omitempty"`
 		Flows        []string `json:"flows,omitempty"`
-		Key          string   `json:"key,omitempty"`
-		Line         float64  `json:"line,omitempty"`
-		Message      string   `json:"message,omitempty"`
-		Project      string   `json:"project,omitempty"`
-		Rule         string   `json:"rule,omitempty"`
-		Severity     string   `json:"severity,omitempty"`
-		Status       string   `json:"status,omitempty"`
-		Tags         []string `json:"tags,omitempty"`
-		TextRange    struct {
+		Impacts      []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`
@@ -736,10 +799,12 @@ type SetTypeResponse struct {
 		Uuid      string `json:"uuid,omitempty"`
 	} `json:"components,omitempty"`
 	Issue struct {
-		Actions  []string `json:"actions,omitempty"`
-		Assignee string   `json:"assignee,omitempty"`
-		Author   string   `json:"author,omitempty"`
-		Comments []struct {
+		Actions                    []string `json:"actions,omitempty"`
+		Assignee                   string   `json:"assignee,omitempty"`
+		Author                     string   `json:"author,omitempty"`
+		CleanCodeAttribute         string   `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string   `json:"cleanCodeAttributeCategory,omitempty"`
+		Comments                   []struct {
 			CreatedAt string `json:"createdAt,omitempty"`
 			HtmlText  string `json:"htmlText,omitempty"`
 			Key       string `json:"key,omitempty"`
@@ -752,15 +817,20 @@ type SetTypeResponse struct {
 		Debt         string   `json:"debt,omitempty"`
 		Effort       string   `json:"effort,omitempty"`
 		Flows        []string `json:"flows,omitempty"`
-		Key          string   `json:"key,omitempty"`
-		Line         float64  `json:"line,omitempty"`
-		Message      string   `json:"message,omitempty"`
-		Project      string   `json:"project,omitempty"`
-		Rule         string   `json:"rule,omitempty"`
-		Severity     string   `json:"severity,omitempty"`
-		Status       string   `json:"status,omitempty"`
-		Tags         []string `json:"tags,omitempty"`
-		TextRange    struct {
+		Impacts      []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		Key                       string   `json:"key,omitempty"`
+		Line                      float64  `json:"line,omitempty"`
+		Message                   string   `json:"message,omitempty"`
+		Project                   string   `json:"project,omitempty"`
+		Rule                      string   `json:"rule,omitempty"`
+		RuleDescriptionContextKey string   `json:"ruleDescriptionContextKey,omitempty"`
+		Severity                  string   `json:"severity,omitempty"`
+		Status                    string   `json:"status,omitempty"`
+		Tags                      []string `json:"tags,omitempty"`
+		TextRange                 struct {
 			EndLine     float64 `json:"endLine,omitempty"`
 			EndOffset   float64 `json:"endOffset,omitempty"`
 			StartLine   float64 `json:"startLine,omitempty"`

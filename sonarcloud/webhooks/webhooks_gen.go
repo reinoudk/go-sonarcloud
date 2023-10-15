@@ -16,10 +16,10 @@ type CreateRequest struct {
 // CreateResponse is the response for CreateRequest
 type CreateResponse struct {
 	Webhook struct {
-		Key    string `json:"key,omitempty"`
-		Name   string `json:"name,omitempty"`
-		Secret string `json:"secret,omitempty"`
-		Url    string `json:"url,omitempty"`
+		HasSecret bool   `json:"hasSecret,omitempty"`
+		Key       string `json:"key,omitempty"`
+		Name      string `json:"name,omitempty"`
+		Url       string `json:"url,omitempty"`
 	} `json:"webhook,omitempty"`
 }
 
@@ -101,10 +101,10 @@ type ListRequest struct {
 // ListResponse is the response for ListRequest
 type ListResponse struct {
 	Webhooks []struct {
-		Key    string `json:"key,omitempty"`
-		Name   string `json:"name,omitempty"`
-		Url    string `json:"url,omitempty"`
-		Secret string `json:"secret,omitempty"`
+		Key       string `json:"key,omitempty"`
+		Name      string `json:"name,omitempty"`
+		Url       string `json:"url,omitempty"`
+		HasSecret bool   `json:"hasSecret,omitempty"`
 	} `json:"webhooks,omitempty"`
 }
 

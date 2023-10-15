@@ -90,7 +90,15 @@ type SearchResponse struct {
 	P     float64 `json:"p,omitempty"`
 	Ps    float64 `json:"ps,omitempty"`
 	Rules []struct {
-		CreatedAt   string `json:"createdAt,omitempty"`
+		CreatedAt           string `json:"createdAt,omitempty"`
+		DescriptionSections []struct {
+			Content string `json:"content,omitempty"`
+			Key     string `json:"key,omitempty"`
+			Context struct {
+				DisplayName string `json:"displayName,omitempty"`
+				Key         string `json:"key,omitempty"`
+			} `json:"context,omitempty"`
+		} `json:"descriptionSections,omitempty"`
 		HtmlDesc    string `json:"htmlDesc,omitempty"`
 		InternalKey string `json:"internalKey,omitempty"`
 		IsExternal  bool   `json:"isExternal,omitempty"`
@@ -169,7 +177,15 @@ type SearchResponseAll struct {
 		} `json:"values,omitempty"`
 	} `json:"facets,omitempty"`
 	Rules []struct {
-		CreatedAt   string `json:"createdAt,omitempty"`
+		CreatedAt           string `json:"createdAt,omitempty"`
+		DescriptionSections []struct {
+			Content string `json:"content,omitempty"`
+			Key     string `json:"key,omitempty"`
+			Context struct {
+				DisplayName string `json:"displayName,omitempty"`
+				Key         string `json:"key,omitempty"`
+			} `json:"context,omitempty"`
+		} `json:"descriptionSections,omitempty"`
 		HtmlDesc    string `json:"htmlDesc,omitempty"`
 		InternalKey string `json:"internalKey,omitempty"`
 		IsExternal  bool   `json:"isExternal,omitempty"`
@@ -207,31 +223,45 @@ type ShowRequest struct {
 
 // ShowResponse is the response for ShowRequest
 type ShowResponse struct {
-	Actives []struct {
-		Inherit string `json:"inherit,omitempty"`
-		Params  []struct {
-			Key   string `json:"key,omitempty"`
-			Value string `json:"value,omitempty"`
-		} `json:"params,omitempty"`
-		QProfile string `json:"qProfile,omitempty"`
-		Severity string `json:"severity,omitempty"`
-	} `json:"actives,omitempty"`
-	Rule struct {
-		DefaultRemFnBaseEffort    string `json:"defaultRemFnBaseEffort,omitempty"`
-		DefaultRemFnGapMultiplier string `json:"defaultRemFnGapMultiplier,omitempty"`
-		DefaultRemFnType          string `json:"defaultRemFnType,omitempty"`
-		GapDescription            string `json:"gapDescription,omitempty"`
-		HtmlDesc                  string `json:"htmlDesc,omitempty"`
-		InternalKey               string `json:"internalKey,omitempty"`
-		IsExternal                bool   `json:"isExternal,omitempty"`
-		Key                       string `json:"key,omitempty"`
-		Lang                      string `json:"lang,omitempty"`
-		LangName                  string `json:"langName,omitempty"`
-		Name                      string `json:"name,omitempty"`
-		Params                    []struct {
+	Actives []string `json:"actives,omitempty"`
+	Rule    struct {
+		CleanCodeAttribute         string `json:"cleanCodeAttribute,omitempty"`
+		CleanCodeAttributeCategory string `json:"cleanCodeAttributeCategory,omitempty"`
+		CreatedAt                  string `json:"createdAt,omitempty"`
+		DebtOverloaded             bool   `json:"debtOverloaded,omitempty"`
+		DebtRemFnCoeff             string `json:"debtRemFnCoeff,omitempty"`
+		DebtRemFnOffset            string `json:"debtRemFnOffset,omitempty"`
+		DebtRemFnType              string `json:"debtRemFnType,omitempty"`
+		DefaultDebtRemFnCoeff      string `json:"defaultDebtRemFnCoeff,omitempty"`
+		DefaultDebtRemFnOffset     string `json:"defaultDebtRemFnOffset,omitempty"`
+		DefaultDebtRemFnType       string `json:"defaultDebtRemFnType,omitempty"`
+		DefaultRemFnBaseEffort     string `json:"defaultRemFnBaseEffort,omitempty"`
+		DefaultRemFnGapMultiplier  string `json:"defaultRemFnGapMultiplier,omitempty"`
+		DefaultRemFnType           string `json:"defaultRemFnType,omitempty"`
+		DescriptionSections        []struct {
+			Content string `json:"content,omitempty"`
+			Key     string `json:"key,omitempty"`
+		} `json:"descriptionSections,omitempty"`
+		EducationPrinciples    []string `json:"educationPrinciples,omitempty"`
+		EffortToFixDescription string   `json:"effortToFixDescription,omitempty"`
+		GapDescription         string   `json:"gapDescription,omitempty"`
+		HtmlDesc               string   `json:"htmlDesc,omitempty"`
+		Impacts                []struct {
+			Severity        string `json:"severity,omitempty"`
+			SoftwareQuality string `json:"softwareQuality,omitempty"`
+		} `json:"impacts,omitempty"`
+		IsExternal bool   `json:"isExternal,omitempty"`
+		IsTemplate bool   `json:"isTemplate,omitempty"`
+		Key        string `json:"key,omitempty"`
+		Lang       string `json:"lang,omitempty"`
+		LangName   string `json:"langName,omitempty"`
+		MdDesc     string `json:"mdDesc,omitempty"`
+		Name       string `json:"name,omitempty"`
+		Params     []struct {
 			DefaultValue string `json:"defaultValue,omitempty"`
-			Desc         string `json:"desc,omitempty"`
+			HtmlDesc     string `json:"htmlDesc,omitempty"`
 			Key          string `json:"key,omitempty"`
+			Type         string `json:"type,omitempty"`
 		} `json:"params,omitempty"`
 		RemFnBaseEffort    string   `json:"remFnBaseEffort,omitempty"`
 		RemFnGapMultiplier string   `json:"remFnGapMultiplier,omitempty"`
@@ -243,7 +273,6 @@ type ShowResponse struct {
 		Status             string   `json:"status,omitempty"`
 		SysTags            []string `json:"sysTags,omitempty"`
 		Tags               []string `json:"tags,omitempty"`
-		Template           bool     `json:"template,omitempty"`
 		Type               string   `json:"type,omitempty"`
 	} `json:"rule,omitempty"`
 }
